@@ -31,6 +31,7 @@ export const Nav = ({ children }) => {
               <Button
                 key={id}
                 // onClick={handleCloseNavMenu}
+                // variant={}
                 sx={{ 
                   my: 2, color: 'white', display: 'block',
                   transition: 'color 0.3s ease-in-out'

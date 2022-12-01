@@ -25,6 +25,7 @@ import { styled } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
 
 import { NextButton, useScrollId, useScrollVisible } from './Nav';
+import { useNav } from './Nav2';
 
 
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
@@ -44,8 +45,9 @@ const backgroundUrl = (theme, url) => ({
 })
 
 
-export const Section = ({ children, sx, background, full, wide, noNext, ...props }) => {
-  const [isin, ref] = useScrollVisible({ timeout: 300, once: true });
+export const Section = ({ children, sx, background, full, wide, menu, noNext, ...props }) => {
+  // const [isin, ref] = useScrollVisible({ timeout: 300, once: true });
+  const ref = useNav(menu)
   
 
   return <Box ref={ref}
@@ -64,14 +66,14 @@ export const Section = ({ children, sx, background, full, wide, noNext, ...props
     }} px={3} {...props}>
       <Box maxWidth={wide ? '1200px' : '900px'} width='100%' py={10} margin='auto'>
         {/* {children} */}
-        <Fade in={isin} appear timeout={1000}>
+        {/* <Fade in={isin} appear timeout={1000}> */}
           <div style={{ maxWidth: '100%' }}>{children}</div>
-        </Fade>
+        {/* </Fade> */}
       </Box>
       {/* <button><DownArrow /></button> */}
-      {!noNext && <Box display='flex' justifyContent='center'>
+      {/* {!noNext && <Box display='flex' justifyContent='center'>
         <NextButton sectionRef={ref} />
-      </Box>}
+      </Box>} */}
   </Box>
 }
 
@@ -191,7 +193,7 @@ export const MultiTableSample = ({ tables }) => {
   const [value, setValue] = React.useState(0);
 
   return (<Box>
-    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ borderBottom: 1, borderColor: 'divider', minHeight: '100px' }}>
       <Tabs value={value} onChange={(e, x) => setValue(x)}>
         {Object.keys(tables).map(x => <Tab label={x} key={x} />)}
       </Tabs>

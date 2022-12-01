@@ -20,7 +20,10 @@ import annotations from './annotations.json'
 import VideoAnnotated from './VideoClip';
 
 import { Section, Code, StandardImageList, MultiTableSample, RelatedWorkCard, ProportionChart } from './PageElements'
-import { Nav } from './Nav'
+// import { Nav } from './Nav'
+import { NavProvider, Nav } from './Nav2'
+
+import { Bar } from './Plots'
 
 // const MAIN_BG = 'street_traffic-helsinki-165-5047';
 // const MAIN_BG = 'street_traffic-milan-1166-44225';
@@ -31,9 +34,9 @@ console.log(annotations)
 
 
 
-const TitleSlide = () => {
+const TitleSlide = ({ menu }) => {
   return (
-    <Section className='with-bg' full
+    <Section className='with-bg' full menu={menu}
           background={annotations.misc[MAIN_BG]?.gif_path}
           sx={{
             color: 'white'
@@ -52,9 +55,9 @@ const TitleSlide = () => {
 }
 
 
-const WhySlide = () => {
+const WhySlide = ({ menu }) => {
   return (
-    <Section>
+    <Section menu={menu}>
         <Typography variant='h2' gutterBottom>
           Why did we compile this dataset?
         </Typography>
@@ -87,16 +90,33 @@ along with 3 hours of manually annotated data, including bounding boxes with cla
         <ProportionChart labels={['labeled', 'unlabeled']} values={[4, 9]} unit='hrs' colors={['#aaaaff', '#aaffff']} />
         <Typography variant='h6'>Amount by time of day:</Typography>
         <ProportionChart labels={['night', 'day']} values={[0.5, 3.5]} unit='hrs' colors={['#aaaaff', '#aaffff']} />
+
+        <Typography variant='h6'>Vehicle counts:</Typography>
+        <Box sx={{ height: 30 }}>
+          <Bar data={annotations.stats.video_label_box_counts} />
+        </Box>
         <Typography variant='h6'>Amount with offscreen sounds:</Typography>
-        <ProportionChart labels={['offscreen', 'no offscreen']} values={[1, 3]} unit='hrs' colors={['#aaaaff', '#aaffff']} />
+        {/* <ProportionChart labels={['offscreen', 'no offscreen']} values={[1, 3]} unit='hrs' colors={['#aaaaff', '#aaffff']} /> */}
+        <Box sx={{ height: 30 }}>
+          <Bar data={annotations.stats.offscreen_counts} />
+        </Box>
+
+        <Typography variant='h6'>Vehicle polyphony (number of vehicles at one time):</Typography>
+        <Typography variant='h6'>Distribution between MAVD and TAU across both labeled and unlabeled:</Typography>
+        <Typography variant='h6'>Distribution between different locations:</Typography>
+        <Typography variant='h6'>Vehicle detection counts:</Typography>
+        <Typography variant='h6'>Vehicle instance counts:</Typography>
+        <Typography variant='h6'>Vehicle/No Vehicle:</Typography>
+        <Typography variant='h6'>Night/Day:</Typography>
+        <Typography variant='h6'>Onscreen/Offscreen:</Typography>
       </Section>
   )
 }
 
 
-const LocationsSlide = () => {
+const LocationsSlide = ({ menu }) => {
   return (
-    <Section wide>
+    <Section wide menu={menu}>
       <Typography variant='h2' gutterBottom>
         42 different locations around the world
       </Typography>
@@ -108,14 +128,18 @@ const LocationsSlide = () => {
   )
 }
 
-const DescriptionSlide = () => {
+const DescriptionSlide = ({ menu }) => {
   return (
-    <Section>
+    <Section menu={menu}>
       <Typography variant='h2' gutterBottom>
         Rich Video & Audio Annotations
       </Typography>
       {/* <StandardImageList images={Object.values(annotations.locations).map(d => d.gif_path_sm)} /> */}
-      <VideoAnnotated fid={'paris272_8271'} size='md' />
+      <Box display='flex' flexWrap='wrap' sx={{ '> *': { flexBasis: '200px', flexGrow: 1 }, maxWidth: '70rem', margin: '0 auto' }}>
+        <VideoAnnotated fid={'vienna177_5448'} size='md' />
+        <VideoAnnotated fid={'prague1153_41096'} size='md' />
+      </Box>
+      <Typography variant='h6'>Various perspectives:</Typography>
       <Typography variant='h4' gutterBottom mt={10}>
         Un avant-goût ;)
       </Typography>
@@ -124,9 +148,9 @@ const DescriptionSlide = () => {
   )
 }
 
-const ChallengingSlide = () => {
+const ChallengingSlide = ({ menu }) => {
   return (
-    <Section>
+    <Section menu={menu}>
         <Typography variant='h2' gutterBottom>
           Challenging Scenarios
         </Typography>
@@ -139,15 +163,17 @@ const ChallengingSlide = () => {
           <VideoAnnotated fid={'london167_5118'} size='md' />
           {/* <VideoAnnotated fid={'helsinki-164-5044'} size='md' /> */}
           {/* <VideoAnnotated fid={'lisbon1067_41198'} size='md' /> */}
-          
         </Box>
+        <Typography variant='h6'>Occlusions:</Typography>
+        <Typography variant='h6'>Low Visibility:</Typography>
+        <Typography variant='h6'>Busy Scenes:</Typography>
       </Section>
   )
 }
 
-const ClipLevelSlide = () => {
+const ClipLevelSlide = ({ menu }) => {
   return (
-    <Section>
+    <Section menu={menu}>
       <Typography variant='h2' gutterBottom>
         Clip Level Annotations
       </Typography>
@@ -160,9 +186,9 @@ const ClipLevelSlide = () => {
   )
 }
 
-const BibSlide = () => {
+const BibSlide = ({ menu }) => {
   return (
-    <Section alignItems='center'>
+    <Section alignItems='center' menu={menu}>
         <Typography variant='h2' gutterBottom textAlign='center'>
           Paper, Dataset, Code
         </Typography>
@@ -274,7 +300,9 @@ const App = () => {
       // '> *:not(.with-bg):nth-of-type(even)': { backgroundImage: theme => theme.palette.background.darkGradient },
       '> *:not(.with-bg):nth-of-type(odd)': { backgroundImage: theme => theme.palette.background.lightGradient }
      }}>
-       <Nav name="Urbansas">
+      <NavProvider>
+       {/* <Nav name="Urbansas"> */}
+        <Nav />
         <TitleSlide menu='Urbansas' />
         <WhySlide menu='Why' />
         <LocationsSlide menu='Scenes' />
@@ -295,7 +323,8 @@ const App = () => {
         <BibSlide menu='access' />
         <RelatedWorkSlide />
         <AuthorSlide />
-      </Nav>
+      {/* </Nav> */}
+      </NavProvider>
       <Footer />
     </Box>
   );

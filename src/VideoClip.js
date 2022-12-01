@@ -18,11 +18,22 @@ import ContactlessIcon from '@mui/icons-material/Contactless';
 
 import { styled, useTheme, alpha } from '@mui/material/styles';
 
+import colormap from 'colormap';
+
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.min.js';
-import CursorPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js';
+// import CursorPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.cursor.min.js';
+import SpectrogramPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.spectrogram.min.js';
 
 import annotations from './annotations.json'
+
+
+
+const colors = colormap({
+  colormap: 'magma',
+  nshades: 256,
+  format: 'float',
+})
 
 
 
@@ -122,6 +133,16 @@ const VideoControls = ({ videoRef }) => {
 const WavesurferContext = createContext();
 const useWavesurfer = () => useContext(WavesurferContext);
 
+const WavesurferContainer = styled('div')`
+* region.wavesurfer-region:before {
+    content: attr(data-region-label);
+    position: absolute;
+    top: 0;
+    left: 4px;
+    color: white;
+    text-shadow: 0px 0px 3px rgb(0 0 0 / 58%);
+}
+`
 
 const Audio = ({ video, regions }) => {
   const theme = useTheme();
@@ -152,10 +173,11 @@ const Audio = ({ video, regions }) => {
       //     //     'font-size': '10px'
       //     // }
       // })
-      //     WaveSurfer.spectrogram.create({
-      //         container: ref.current,
-      //         labels: true
-      //     })
+        SpectrogramPlugin.create({
+            container: ref.current,
+            labels: true,
+            colorMap: colors,
+        })
       ]
     })
     setWs(ws)
@@ -173,13 +195,13 @@ const Audio = ({ video, regions }) => {
     ws.play()
   }, [ws, video]); // XXX: video element assumption
   return <WavesurferContext.Provider value={ws}>
-    <div ref={ref}>
+    <WavesurferContainer ref={ref}>
       {regions && regions.map((r, i) => <Region key={i} {...r} />)}
-    </div>
+    </WavesurferContainer>
   </WavesurferContext.Provider>
 }
 
-const Region = ({ start, end }) => {
+const Region = ({ start, end, color='#f426b36c', label, non_identifiable_vehicle_sound }) => {
   const ws = useWavesurfer();
   useEffect(() => {
     if(!ws?.regions || ws?.isDestroyed) return;
@@ -187,7 +209,10 @@ const Region = ({ start, end }) => {
       start, end, 
       drag: false, resize: false, 
       showTooltip: true,
-      color: '#f426b36c',
+      color,
+      attributes: {
+        label: non_identifiable_vehicle_sound ? `${label}?` : label
+      },
     })
     return () => {
       try {
@@ -196,7 +221,7 @@ const Region = ({ start, end }) => {
         // I don't care
       }
     }
-  }, [ ws, start, end ])
+  }, [ ws, start, end, label ])
   return 
 }
 

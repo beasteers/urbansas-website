@@ -26,7 +26,8 @@ let theme = createTheme({
       darkGradient: 'linear-gradient(74deg, #06001e7d, #16006d9e)',
       deepGradient: 'linear-gradient(45deg, #891fdc91, #3b00fd8a)',
       brightGradient: 'linear-gradient(135deg, #3b2bf6b0, #8d46ffa6)',
-      lightGradient: 'linear-gradient(45deg, #c892d11a, #2e00c71f)',
+      // lightGradient: 'linear-gradient(45deg, #c892d11a, #2e00c71f)',
+      lightGradient: 'linear-gradient(45deg, #c892d114, #2e00c71a)',
     }
   },
   typography: {
