@@ -37,33 +37,51 @@ import { nightOwl as syntaxStyle } from 'react-syntax-highlighter/dist/esm/style
 // SyntaxHighlighter.registerLanguage('latex', latex);
 
 
+const FitVideo_ = styled('video')`
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+`
+const FitVideo = ({ src }) => {
+  return (
+    <FitVideo_ playsInline autoPlay muted loop>
+      <source src={src} type="video/mp4" />
+    </FitVideo_>
+  )
+}
 
-
-const backgroundUrl = (theme, url) => ({
-  background: `url(${url}) no-repeat center center fixed, ${theme.palette.background.darkGradient}`,
-  backgroundSize: 'cover',
-})
+// const backgroundUrl = (theme, url) => ({
+//   background: `url(${url}) no-repeat center center fixed, ${theme.palette.background.darkGradient}`,
+//   backgroundSize: 'cover',
+// })
 
 
 export const Section = ({ children, sx, background, full, wide, menu, noNext, ...props }) => {
   // const [isin, ref] = useScrollVisible({ timeout: 300, once: true });
   const ref = useNav(menu)
   
-
   return <Box ref={ref}
     display='flex' flexDirection='column' 
     justifyContent='center'
     sx={{ 
+      position: 'relative',
       minHeight: full ? '100vh' : null,
       // maxWidth: '100vw',
       // width: '100vw',
-      background: theme => background && `url(${background}) no-repeat center center fixed, ${theme.palette.background.brightGradient}`,
+      // background: theme => background && `url(${background}) no-repeat center center fixed, ${theme.palette.background.brightGradient}`,
+      background: theme => background && `${theme.palette.background.brightGradient}`,
       backgroundSize: 'cover',
       backgroundBlendMode: 'multiply',
+      // mixBlendMode: 'multiply',
       // ...(background && backgroundUrl(background)),
       // backgroundColor: (theme) => theme.palette.background.darkGradient,
       ...sx,
     }} px={3} {...props}>
+      {background && <FitVideo src={background} />}
       <Box maxWidth={wide ? '1200px' : '900px'} width='100%' py={10} margin='auto'>
         {/* {children} */}
         {/* <Fade in={isin} appear timeout={1000}> */}
@@ -98,25 +116,29 @@ export const Highlight = ({ children, ...sx }) => {
 //   );
 // }
 
-const Video = ({ src }) => {
+const Video = ({ src, playOnHover }) => {
   return (
     src?.endsWith('gif') ? 
     <img src={src} srcSet={src} alt={src} loading="lazy" />
     : (
-      <video autoPlay loop muted>
+      <video autoPlay={!playOnHover} loop muted={!playOnHover}
+          onMouseOver={playOnHover && (e => e.target.play())}
+          onMouseOut={playOnHover && (e => e.target.pause())}
+          onTouchStart={playOnHover && (e => e.target.play())}
+          onTouchEnd={playOnHover && (e => e.target.pause())}>
         <source src={src} type="video/mp4" />
       </video>
     )
   )
 }
 
+// onMouseOver="this.play()" onMouseOut="this.pause()"
 
-
-export const StandardImageList = ({ images }) => {
+export const StandardImageList = ({ images, playOnHover }) => {
   return (
-    <Stack direction='row' sx={{ flexWrap: 'wrap' }}>
+    <Stack direction='row' sx={{ flexWrap: 'wrap', '> *': {flex: '1 1 200px'} }}>
       {images && images.map(src => (
-          <Video key={src} src={src} />
+          src && <Video key={src} src={src} playOnHover={playOnHover} />
       ))}
     </Stack>
   );
@@ -197,23 +219,26 @@ export const MultiTableSample = ({ tables }) => {
       <Tabs value={value} onChange={(e, x) => setValue(x)}>
         {Object.keys(tables).map(x => <Tab label={x} key={x} />)}
       </Tabs>
+      {Object.entries(tables).map(([k, x], i) => <div hidden={value !== i} key={k}><Table data={x} /></div>)}
     </Box>
-    {Object.entries(tables).map(([k, x], i) => <div hidden={value !== i} key={k}><Table data={x} /></div>)}
   </Box>)
 }
 
 const Table = ({ data }) => {
-  const columns = [...(data?.length ? Object.keys(data[0]).map(k => ({ field: k })) : [])];
+  const columns = [...(data?.length ? Object.keys(data[0]).map(k => ({ field: k, flex: Math.log(k.length+1) })) : [])];
 
   return (
     <div style={{ height: 400, width: '100%' }}>
+      {/* <div style={{ display: 'flex', height: '100%' }}>
+      <div style={{ flexGrow: 1 }}> */}
       <DataGrid
         rows={data && data.map((d, id) => ({ id, ...d }))}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
+        // pageSize={5}
+        // rowsPerPageOptions={[5]}
       />
+    {/* </div>
+    </div> */}
     </div>
   )
 }

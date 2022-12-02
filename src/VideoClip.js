@@ -15,6 +15,7 @@ import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import ContactlessIcon from '@mui/icons-material/Contactless';
+import NoiseAwareIcon from '@mui/icons-material/NoiseAware';
 
 import { styled, useTheme, alpha } from '@mui/material/styles';
 
@@ -35,13 +36,21 @@ const colors = colormap({
   format: 'float',
 })
 
-
+export const MultiVideoAnnotated = ({ fids, boxSx, ...props }) => {
+  return (
+    <Box display='flex' justifyContent='center' flexWrap='wrap' sx={{ '> *': { flexBasis: '200px', flexGrow: 1 }, maxWidth: '70rem', margin: '0 auto', ...boxSx }}>
+      {fids.map(f => f && <VideoAnnotated key={f} fid={f} {...props} />)}
+    </Box>
+  )
+}
 
 // XXX: FPS ASSUMPTION
-const VideoAnnotated = ({ fid, size, group='locations', fps=2, hideAudio, ...props }) => {
-  const { night, offscreen, visual_objects, audio_objects, ...ann } = annotations[group][fid] || {};
+const VideoAnnotated = ({ fid, size='md', group='locations', annotationFps=2, hideAudio, sx, ...props }) => {
+  const fullAnn = annotations.meta[fid] || {}
+  const { night, offscreen, visual_objects, audio_objects, ...ann } = fullAnn;
   const src = ann[size ? `video_path_${size}` : 'video_path'];
   // console.log(src, night, offscreen, visual_objects, audio_objects, ann)
+  useEffect(() => { console.log(fullAnn) }, [])
 
   const [frameIndex, setFrameIndex] = useState(0);
   const currentBoxes = visual_objects?.[frameIndex];
@@ -50,9 +59,9 @@ const VideoAnnotated = ({ fid, size, group='locations', fps=2, hideAudio, ...pro
   // const [[width, height], setVectorDimensions] = useState([0, 0]);
   const [videoDuration, setVideoDuration] = useState(0);
   // const [fps, setFps] = useState(24);
-  const frameLength = 1 / fps;
+  const frameLength = 1 / annotationFps;
   const getFrameIndex = timeSec => {
-    return Math.max(Math.floor(timeSec / frameLength), 0); // XXX: weird constant !! 0.25 idk that's what it took
+    return Math.max(Math.floor(timeSec / frameLength + 0.5), 0); // XXX: weird constant !! 0.25 idk that's what it took
   };
   // const [isPaused, setIsPaused] = useState(true);
   // const [muted, setMuted] = useState(true);
@@ -75,13 +84,13 @@ const VideoAnnotated = ({ fid, size, group='locations', fps=2, hideAudio, ...pro
   const updateFrameIndex = () => {
     const nextFrameIndex = getFrameIndex(vidRef.current?.currentTime);
     if (nextFrameIndex !== frameIndex) {
-      // console.log(vidRef.current.currentTime, vidRef.current.currentTime/fps, frameIndex, nextFrameIndex)
+      // console.log(vidRef.current.currentTime, vidRef.current.currentTime/annotationFps, frameIndex, nextFrameIndex)
       setFrameIndex(nextFrameIndex);
     }
   };
 
-  return src && <Box>
-    <Box sx={{ position: 'relative', width: '100%', marginTop: '1rem' }}>
+  return src && <Box sx={sx}>
+    <Box sx={{ position: 'relative', width: '100%', marginTop: '1rem', }}>
       <video
         width='100%'
         ref={vidRef}
@@ -108,10 +117,10 @@ const VideoAnnotated = ({ fid, size, group='locations', fps=2, hideAudio, ...pro
         autoPlay
         src={src}
       />
-      <AnnotationCanvas night={night} offscreen={offscreen} boxes={currentBoxes} {...props} />
+      <AnnotationCanvas night={night} offscreen={offscreen} boxes={currentBoxes} colors={annotations.colors} {...props} />
     </Box>
+    <VideoControls videoRef={vidRef} />
     {!hideAudio && vidRef && <Audio video={vidRef} regions={audio_objects} />}
-    {/* <VideoControls videoRef={vidRef} /> */}
   </Box>
 }
 
@@ -120,13 +129,13 @@ const VideoControls = ({ videoRef }) => {
   const paused = videoRef.current?.paused;
   const toggle = () => videoRef.current && (videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause());
   return <Stack direction='row'>
-    <IconButton aria-label="play/pause">
-      {!paused ? <PauseIcon onClick={toggle} /> : <PlayArrowIcon onClick={toggle} />}
+    <IconButton aria-label="play/pause" onClick={toggle}>
+      {!paused ? <PauseIcon /> : <PlayArrowIcon />}
     </IconButton>
 
-    <IconButton aria-label="mute/unmute">
+    {/* <IconButton aria-label="mute/unmute">
       {!paused ? <PauseIcon onClick={toggle} /> : <PlayArrowIcon onClick={toggle} />}
-    </IconButton>
+    </IconButton> */}
   </Stack>
 }
 
@@ -141,6 +150,9 @@ const WavesurferContainer = styled('div')`
     left: 4px;
     color: white;
     text-shadow: 0px 0px 3px rgb(0 0 0 / 58%);
+}
+spectrogram canvas {
+  height: 100% !important;
 }
 `
 
@@ -175,8 +187,10 @@ const Audio = ({ video, regions }) => {
       // })
         SpectrogramPlugin.create({
             container: ref.current,
-            labels: true,
+            labels: false,
             colorMap: colors,
+            height: 86,
+            splitChannels: true,
         })
       ]
     })
@@ -191,8 +205,8 @@ const Audio = ({ video, regions }) => {
   useEffect(() => {  
     if(!( ws && video?.current?.src && !ws.isDestroyed )) return;
     ws.load(video.current)
-    ws.setMute(true)
-    ws.play()
+    // ws.setMute(true)
+    // ws.play()
   }, [ws, video]); // XXX: video element assumption
   return <WavesurferContext.Provider value={ws}>
     <WavesurferContainer ref={ref}>
@@ -211,7 +225,7 @@ const Region = ({ start, end, color='#f426b36c', label, non_identifiable_vehicle
       showTooltip: true,
       color,
       attributes: {
-        label: non_identifiable_vehicle_sound ? `${label}?` : label
+        label: label
       },
     })
     return () => {
@@ -225,7 +239,7 @@ const Region = ({ start, end, color='#f426b36c', label, non_identifiable_vehicle
   return 
 }
 
-const AnnotationCanvas = ({ boxes, sx, night, offscreen, hideBoxes, hideClipLabels, hideBoxLabel, ...props }) => {
+const AnnotationCanvas = ({ boxes, sx, night, offscreen, non_identifiable_vehicle_sound, colors, hideBoxes, hideClipLabels, hideBoxLabel, ...props }) => {
   return <Box
     sx={{
       position: 'absolute',
@@ -250,8 +264,9 @@ const AnnotationCanvas = ({ boxes, sx, night, offscreen, hideBoxes, hideClipLabe
     {!hideClipLabels && <Stack direction='row-reverse' spacing={0.2} sx={{ position: 'absolute', top: 0, right: '0.1rem', transform: 'translateY(-50%)' }}>
         <LabelIcon value={night} labels={['day', 'night']} icons={[LightModeIcon, NightsStayIcon]} />
         <LabelIcon value={offscreen} labels={[null, 'off-screen sounds']} icons={[null, ContactlessIcon]} />
+        <LabelIcon value={non_identifiable_vehicle_sound} labels={[null, 'non-identifiable vehicle sounds']} icons={[null, NoiseAwareIcon]} />
     </Stack>}
-    {!hideBoxes && boxes && boxes.map((b, i) => <BoundingBox key={i} hideLabel={hideBoxLabel} {...b} />)}
+    {!hideBoxes && boxes && boxes.map((b, i) => <BoundingBox key={i} hideLabel={hideBoxLabel} color={colors?.[b.label]} {...b} />)}
     {/* {!hideClipLabels && offscreen && <Box sx={{ 
       position: 'absolute', bottom: 0, right: 0, px: 1, //fontSize: 0.7,
       backgroundColor: 'secondary.dark', color: 'text.primary',
@@ -306,7 +321,7 @@ const COLORS = {
   null: '#00FF00',
 }
 
-const LEGEND = {
+export const LEGEND = {
   car: { color: '#00FF00' },
   truck: { color: '#ff0043' },
   bus: { color: '#003aff' },

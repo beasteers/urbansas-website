@@ -23,155 +23,44 @@ src = os.path.join(here, 'src')
 
 os.makedirs(public_out, exist_ok=True)
 
-URBANSAS_ROOT = '/Users/beasteers/Data/tau'
+# URBANSAS_ROOT = '/Users/beasteers/Data/tau'
 DURATION = 10
 
 annotations = {}
 
 file_groups = {
     'backgrounds': [
-        'street_traffic-helsinki-165-5047',
+        'helsinki165_5047',
     ],
     'misc': [
-        'street_traffic-helsinki-164-5044',
-        'street_traffic-lisbon-1008-40464',
-        'street_traffic-lisbon-1067-41198',
-        'street_traffic-lisbon-1067-41432',
-        'street_traffic-lisbon-1076-42301',
-        'street_traffic-london-167-5118',
-        'street_traffic-lyon-1045-40062',
-        'street_traffic-milan-1097-42556',
-        'street_traffic-milan-1166-44225',
-        'street_traffic-milan-1166-44341',
-        'street_traffic-milan-1202-44201',
-        'street_traffic-paris-272-8271',
-        'street_traffic-paris-272-8285',
-        'street_traffic-stockholm-174-5341',
-        'street_traffic-vienna-176-5411',
+        'helsinki164_5044',
+        'lisbon1008_40464',
+        'lisbon1067_41198',
+        'lisbon1067_41432',
+        'lisbon1076_42301',
+        'london167_5118',
+        'lyon1045_40062',
+        'milan1097_42556',
+        'milan1166_44225',
+        'milan1166_44341',
+        'milan1202_44201',
+        'paris272_8271',
+        'paris272_8285',
+        'stockholm174_5341',
+        'vienna176_5411',
     ]
 }
 
-# def read_video(path):
-#     import cv2
-#     cap = cv2.VideoCapture(path)
-#     ims = []
-#     ret = True
-#     while ret:
-#         ret, image = cap.read()
-#         if not ret:
-#             break
-#         ims.append(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-#     fps = cap.get(cv2.CAP_PROP_FPS)
-#     return fps, ims
 
-# def video2gif(video_path, suffix=None, size=None):
-#     size_text = f"_{'x'.join(map(str, size))}" if size else ''
-#     fname = f"{os.path.splitext(video_path)[0]}{size_text}{suffix or ''}.gif"
-#     basename = os.path.basename(fname)
-#     if os.path.isfile(fname):
-#         return basename
-
-#     from PIL import Image
-#     fps, frames = read_video(video_path)
-#     if not frames:
-#         raise ValueError(f'{video_path} {fps} {frames}')
-#     frames = [Image.fromarray(x) for x in frames]
-#     if size:
-#         frames = [im.copy() for im in frames]
-#         for im in frames:
-#             im.thumbnail(size)
-
-#     frames[0].save(
-#         fname, 
-#         format="GIF", append_images=frames,
-#         save_all=True, duration=1000. / fps, loop=0)
-#     return basename
-
-# def pull_file(urbansas_root, fileid, overwrite=False):
-#     # pull video
-#     fs = glob.glob(os.path.join(urbansas_root, 'video', fileid + '.*'))
-#     vf = fs[0]
-#     video_file = os.path.basename(vf)
-#     video_path = os.path.join(public, video_file)
-#     if not os.path.isfile(video_path):
-#         shutil.copy(vf, os.path.join(public, video_file))
-
-#     gif_path = video2gif(video_path)
-#     gif_path_sm = video2gif(video_path, size=(200, 200))
-#     gif_path_md = video2gif(video_path, size=(400, 400))
-
-#     # pull audio
-#     fs = glob.glob(os.path.join(urbansas_root, 'audio', fileid + '.*'))
-#     af = fs[0]
-#     audio_file = os.path.basename(af)
-#     audio_path = os.path.join(public, audio_file)
-#     if not os.path.isfile(audio_path):
-#         shutil.copy(af, audio_path)
-
-#     return {
-#         'video_path': video_file,
-#         'audio_path': audio_file,
-#         'gif_path': gif_path,
-#         'gif_path_sm': gif_path_sm,
-#         'gif_path_md': gif_path_md,
-#     }
-
-def pull_file(urbansas_root, fileid, gif_sizes=None, video_sizes=None, overwrite=False):
-    from moviepy.editor import VideoFileClip, AudioFileClip
-    video_path = glob.glob(os.path.join(urbansas_root, 'video', fileid + '.*'))[0]
-    filename_base = os.path.splitext(os.path.basename(video_path))[0]
-
-    vc = VideoFileClip(video_path)
-    duration = vc.duration
-    shape = vc.size
-
-    paths = {}
-
-    # write gif
-    gif_path = os.path.join(public_out, f"{filename_base}.gif")
-    paths[f'gif_path'] = os.path.relpath(gif_path, public)
-    if overwrite or not os.path.isfile(gif_path):
-        vc.write_gif(gif_path)
-
-    # write gifs
-    for key, size in (gif_sizes or {}).items():
-        gif_path = os.path.join(public_out, f"{filename_base}_{key}.gif")
-        paths[f'gif_path_{key}'] = os.path.relpath(gif_path, public)
-        if not overwrite and os.path.isfile(gif_path):
-            continue
-
-        clipi = vc.resize(width=size) if size else vc
-        clipi.write_gif(gif_path)
-
-    # add audio
-    audio_path = glob.glob(os.path.join(urbansas_root, 'audio', fileid + '.*'))[0]
-    vc.audio = AudioFileClip(audio_path)
-
-    # write video
-    vid_path = os.path.join(public_out, f'{filename_base}.mp4')
-    paths[f'video_path'] = os.path.relpath(vid_path, public)
-    if overwrite or not os.path.isfile(vid_path):
-        vc.write_videofile(vid_path)
-
-    # write video at smaller sizes
-    for key, size in (video_sizes or {}).items():
-        vid_path = os.path.join(public_out, f"{filename_base}_{key}.mp4")
-        paths[f'video_path_{key}'] = os.path.relpath(vid_path, public)
-        if not overwrite and os.path.isfile(vid_path):
-            continue
-
-        clipi = vc.resize(width=size) if size else vc
-        clipi.write_videofile(vid_path)
-
-    return paths, duration, shape
-
-
-def main(urbansas_root=URBANSAS_ROOT):
+def main(urbansas_root, fps=8):
     import pandas as pd
 
     # get all annotations
-    video_df = pd.read_csv(os.path.join(urbansas_root, 'video_annotations.csv'))
-    audio_df = pd.read_csv(os.path.join(urbansas_root, 'audio_annotations.csv'))
+    video_df = pd.read_csv(os.path.join(urbansas_root, 'annotations/video_annotations.csv'))
+    audio_df = pd.read_csv(os.path.join(urbansas_root, 'annotations/audio_annotations.csv'))
+    video_df_sample = video_df.head(50)
+    audio_df_sample = audio_df.head(50)
+    print(audio_df_sample)
 
     # get clip level annotations
     video_clip_df = video_df.groupby('filename').apply(lambda d: pd.Series({
@@ -180,7 +69,8 @@ def main(urbansas_root=URBANSAS_ROOT):
         'location': d.location_id.iloc[0],
     }))
     audio_clip_df = audio_df.groupby('filename').apply(lambda d: pd.Series({
-        'offscreen': bool(d.non_identifiable_vehicle_sound.any()),
+        'offscreen': bool((d.label == 'offscreen').any()),
+        'non_identifiable_vehicle_sound': bool(d.non_identifiable_vehicle_sound.any()),
     }))
     # filter out clip level annotations from annotation dfs
     video_df = video_df[~(video_df.time == -1)]
@@ -190,32 +80,31 @@ def main(urbansas_root=URBANSAS_ROOT):
     # get location 
     locations = video_clip_df.reset_index(drop=False).groupby('location').first()
     print(len(locations), 'locations')
-    file_groups['locations'] = [change_old_fid(f) for f in locations.filename.tolist()]
+    file_groups['locations'] = locations.filename.tolist()
 
-    anns = {}
+    # anns = {}
+    meta = {}
     for group, files in file_groups.items():
-        anns[group] = {}
+        # anns[group] = {}
         pbar = tqdm.tqdm(files)
         for fid in pbar:
-            # fid2 is for the dataframe, fid is for filename
-            fid2 = change_new_fid(fid)
-
-            vdf = video_df[video_df.filename == fid2]
-            adf = audio_df[audio_df.filename == fid2]
-            if fid2 not in video_clip_df.index:
+            vdf = video_df[video_df.filename == fid]
+            adf = audio_df[audio_df.filename == fid]
+            if fid not in video_clip_df.index:
                 pbar.write(f"WARNING: No annotation for {fid}")
                 continue
 
-            dataset = video_clip_df.loc[fid2].dataset
-            location = video_clip_df.loc[fid2].location
-            night = bool(video_clip_df.loc[fid2].night)
-            offscreen = bool(audio_clip_df.loc[fid2].offscreen)
+            dataset = video_clip_df.loc[fid].dataset
+            location = video_clip_df.loc[fid].location
+            night = bool(video_clip_df.loc[fid].night)
+            offscreen = bool(audio_clip_df.loc[fid].offscreen)
+            non_identifiable_vehicle_sound = bool(audio_clip_df.loc[fid].non_identifiable_vehicle_sound)
 
-            pbar.write(f'{dataset}:{fid2} v={len(vdf)} a={len(adf)} night={night} offscreen={offscreen}')
+            pbar.write(f'{dataset}:{fid} v={len(vdf)} a={len(adf)} night={night} offscreen={offscreen} nivs={non_identifiable_vehicle_sound}')
 
             try:
                 paths, duration, shape = pull_file(
-                    urbansas_root, fid, 
+                    urbansas_root, fid, fps=fps,
                     gif_sizes={'sm': 200, 'md': 400},
                     video_sizes={'sm': 200, 'md': 400})
             except IndexError:
@@ -230,17 +119,22 @@ def main(urbansas_root=URBANSAS_ROOT):
             adf.loc[adf.start < 0, 'start'] = 0
             adf.loc[adf.end < 0, 'end'] = duration
 
-            anns[group][fid2] = {
+            # anns[group]
+            meta[fid] = {
                 'file_id': fid, 
+                'location': location,
                 'dataset': dataset, 
                 'night': night, 
-                'offscreen': offscreen,
+                'offscreen': offscreen, 
+                'non_identifiable_vehicle_sound': non_identifiable_vehicle_sound,
                 'visual_objects': {int(i): d.to_dict('records') for i, d in vdf.groupby('frame_id')},
                 'audio_objects': adf.to_dict('records'),
-                **({k: f'/{path}' if path else None for k, path in paths.items()}), 
+                **paths, 
             }
 
-
+    anns = {}
+    anns.update(file_groups)
+    anns['meta'] = meta
     anns['stats'] = {
         # count objects per label
         'video_label_object_counts': video_df.groupby('track_id').first().label.value_counts().to_dict(),
@@ -252,39 +146,105 @@ def main(urbansas_root=URBANSAS_ROOT):
         'dataset_counts': video_clip_df.dataset.value_counts().to_dict(),
         'location_counts': video_clip_df.location.value_counts().to_dict(),
         'offscreen_counts': audio_clip_df.offscreen.value_counts().to_dict(),
+        'non_identifiable_vehicle_sound_counts': audio_clip_df.non_identifiable_vehicle_sound.value_counts().to_dict(),
     }
 
+    anns['colors'] = {
+        'car': '#00FF00',
+        'truck': '#ff0043',
+        'bus': '#003aff',
+        'motorbike': '#ffc800',
+    }
+
+
     anns['table_samples'] = {
-        "Video Frame-Level": video_df.head(20).to_dict('records'),
-        "Audio Frame-Level": audio_df.head(20).to_dict('records'),
-        "Video Clip-Level": video_clip_df.head(20).to_dict('records'),
-        "Audio Clip-Level": audio_clip_df.head(20).to_dict('records'),
+        "Video": video_df_sample.head(20).to_dict('records'),
+        "Audio": audio_df_sample.head(20).to_dict('records'),
+        # "Video Clip-Level": video_clip_df.head(20).to_dict('records'),
+        # "Audio Clip-Level": audio_clip_df.head(20).to_dict('records'),
     }
     
     with open(os.path.join(src, 'annotations.json'), 'w') as f:
         json.dump(anns, f, indent=2)
 
 
-def change_new_fid(fid):
-    fid2 = remove_prefix(fid, 'street_traffic-')
-    fid2_parts = fid2.split('-')
-    fid2 = '_'.join(fid2_parts[:-2]) + '_'.join(fid2_parts[-2:])
-    return fid2
 
-def change_old_fid(fid):
-    import re
-    m = re.search(r'([A-z]+)([\d-]+)', fid.replace('_', '-'))
-    if m is None: 
-        return fid
-    name, rest = m.groups()
-    fid2 = f'street_traffic-{name}-{rest}'
-    print(fid, fid2)
-    return fid2
 
-def remove_prefix(text, prefix):
-    if text.startswith(prefix):
-        return text[len(prefix):]
-    return text
+
+
+
+def write_video(vc, filename_base, key=None, ext='mp4', size=None, overwrite=False):
+    path = os.path.join(public_out, f"{filename_base}{f'_{key}' if key else ''}.{ext}")
+    # optionally write video
+    if overwrite or not os.path.isfile(path):
+        clipi = vc.resize(width=size) if size else vc
+        clipi.write_gif(path) if path.endswith('.gif') else clipi.write_videofile(path)
+    # return url for file
+    return os.path.relpath(path, public)
+
+
+def pull_file(urbansas_root, fileid, video_df=None, gif_sizes=None, video_sizes=None, fps=None, overwrite=False):
+    from moviepy.editor import VideoFileClip, AudioFileClip
+    # select the first video file matching that file id
+    video_path = glob.glob(os.path.join(urbansas_root, 'video_24fps', fileid + '.*'))[0]
+    # get the full name of that file ID (if you did partial matching)
+    fileid = os.path.splitext(os.path.basename(video_path))[0]
+
+    # load video
+    vc = VideoFileClip(video_path)
+    duration = vc.duration
+    shape = vc.size
+    if fps:
+        vc.set_fps(fps)
+    # add audio
+    audio_path = glob.glob(os.path.join(urbansas_root, 'audio', fileid + '.*'))[0]
+    vc.audio = AudioFileClip(audio_path)
+
+    paths = {}
+
+    # # write gif
+    # paths[f'gif_path'] = write_video(vc, fileid, None, 'gif', size=None, overwrite=overwrite)
+    # # write gifs
+    # for key, size in (gif_sizes or {}).items():
+    #     paths[f'gif_path_{key}'] = write_video(vc, fileid, key, 'gif', size, overwrite=overwrite)
+
+    # write video
+    paths[f'video_path'] = write_video(vc, fileid, None, 'mp4', size=None, overwrite=overwrite)
+    # write video at smaller sizes
+    for key, size in (video_sizes or {}).items():
+        paths[f'video_path_{key}'] = write_video(vc, fileid, key, 'mp4', size, overwrite=overwrite)
+
+
+    if video_df is not None:
+        vcann = vc.copy()
+        vcann.set_fps(2)
+        vcann = vcann.fl()
+
+    return paths, duration, shape
+
+# def draw_anns(clip):
+#     def _draw(get_frame. t):
+#         im = get_frame(t)
+
+#         return draw_boxes(im, boxes, labels)
+#     return clip.fl(_draw)
+
+
+
+def draw_boxes(im, boxes, labels=None, color=(0,255,0), size=1, text_color=(0, 0, 255), spacing=3):
+    boxes = np.asarray(boxes).astype(int)
+    color = np.asarray(color).astype(int)
+    color = color[None] if color.ndim == 1 else color
+    labels = itertools.chain([] if labels is None else labels, itertools.cycle(['']))
+    for xy, label, c in zip(boxes, labels, itertools.cycle(color)):
+        im = cv2.rectangle(im, xy[:2], xy[2:4], tuple(c.tolist()), 2)
+        if label:
+            if isinstance(label, list):
+                im, _ = draw_text_list(im, label, 0, tl=xy[:2] + spacing, space=40, color=text_color)
+            else:
+                im = cv2.putText(im, label, xy[:2] - spacing, cv2.FONT_HERSHEY_SIMPLEX, im.shape[1]/1400*size, text_color, 1)
+    return im
+
 
 if __name__ == '__main__':
     import fire
