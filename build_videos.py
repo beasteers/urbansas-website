@@ -25,6 +25,7 @@ os.makedirs(public_out, exist_ok=True)
 
 # URBANSAS_ROOT = '/Users/beasteers/Data/tau'
 DURATION = 10
+ANN_FPS = 2
 
 annotations = {}
 
@@ -53,7 +54,7 @@ file_groups = {
 }
 
 
-def main(urbansas_root, fps=8):
+def main(urbansas_root, fps=None):
     import pandas as pd
 
     # get all annotations
@@ -67,6 +68,7 @@ def main(urbansas_root, fps=8):
         'night': bool(d.night.any()),
         'dataset': d.subset.iloc[0],
         'location': d.location_id.iloc[0],
+        'city': d.city.iloc[0],
     }))
     audio_clip_df = audio_df.groupby('filename').apply(lambda d: pd.Series({
         'offscreen': bool((d.label == 'offscreen').any()),
@@ -105,7 +107,7 @@ def main(urbansas_root, fps=8):
             try:
                 paths, duration, shape = pull_file(
                     urbansas_root, fid, fps=fps,
-                    video_sizes={'sm': 200, 'md': 400, None: group == 'backgrounds'})
+                    video_sizes={'sm': 150, 'md': 400, None: 720 if group == 'backgrounds' else None})
             except IndexError:
                 print(f"couldn't find matching file for {fid}")
                 continue
@@ -135,18 +137,35 @@ def main(urbansas_root, fps=8):
     anns = {}
     anns.update(file_groups)
     anns['meta'] = meta
+
+    fs_all = glob.glob(os.path.join(urbansas_root, 'video_24fps', '*'))
+    frames_total = len(fs_all) * DURATION * ANN_FPS
+
+    video_frames_count = len(video_df[['filename', 'frame_id']].value_counts().index)
+
+    polyphony_all = video_df.groupby(['filename', 'frame_id']).w.count().value_counts()
+    polyphony = polyphony_all[polyphony_all.index < 8]
+    polyphony['8+'] = polyphony_all[polyphony_all.index >= 8].sum()
+    print(polyphony)
+
     anns['stats'] = {
-        # count objects per label
-        'video_label_object_counts': video_df.groupby('track_id').first().label.value_counts().to_dict(),
+        # count track instances per label
+        'video_label_object_counts': video_df.groupby(['filename', 'track_id']).first().label.value_counts().to_dict(),
         'audio_label_object_counts': audio_df.label.value_counts().to_dict(),
-        # count boxes per label
+        # count total frame-level detections per label
         'video_label_box_counts': video_df.label.value_counts().to_dict(),
+        # 
+        'has_vehicle_counts': {'vehicle': video_frames_count, 'no vehicle': frames_total - video_frames_count},
+        # 
+        'vehicle_polyphony_counts': polyphony.to_dict(),
         # meta counts
-        'night_counts': video_clip_df.night.value_counts().to_dict(),
+        'night_counts': video_clip_df.night.value_counts().rename(index={False: 'day', True: 'night'}).to_dict(),
         'dataset_counts': video_clip_df.dataset.value_counts().to_dict(),
+        'unlabeled_dataset_counts': video_clip_df.dataset.value_counts().to_dict(),
+        'city_counts': video_clip_df.city.value_counts().to_dict(),
         'location_counts': video_clip_df.location.value_counts().to_dict(),
-        'offscreen_counts': audio_clip_df.offscreen.value_counts().to_dict(),
-        'non_identifiable_vehicle_sound_counts': audio_clip_df.non_identifiable_vehicle_sound.value_counts().to_dict(),
+        'offscreen_counts': audio_clip_df.offscreen.value_counts().rename(index={False: 'no offscreen', True: 'offscreen'}).to_dict(),
+        'non_identifiable_vehicle_sound_counts': audio_clip_df.non_identifiable_vehicle_sound.value_counts().rename(index={False: 'no nivs', True: 'nivs'}).to_dict(),
     }
 
     anns['colors'] = {
@@ -156,19 +175,22 @@ def main(urbansas_root, fps=8):
         'motorbike': '#ffc800',
     }
 
-
     anns['table_samples'] = {
-        "Video": video_df_sample.head(20).to_dict('records'),
-        "Audio": audio_df_sample.head(20).to_dict('records'),
+        "Video": video_df_sample.to_dict('records'),
+        "Audio": audio_df_sample.to_dict('records'),
         # "Video Clip-Level": video_clip_df.head(20).to_dict('records'),
         # "Audio Clip-Level": audio_clip_df.head(20).to_dict('records'),
     }
+
+    
     
     with open(os.path.join(src, 'annotations.json'), 'w') as f:
-        json.dump(anns, f, indent=2)
+        json.dump(round_floats(anns, 4), f, indent=2)
 
+        
 
-
+def round_floats(x, n):
+    return json.loads(json.dumps(x), parse_float=lambda x: round(float(x), n))
 
 
 def sjoin(sep, *xs):
@@ -197,7 +219,7 @@ def pull_file(urbansas_root, fileid, video_df=None, video_sizes=None, fps=None, 
     duration = vc.duration
     shape = vc.size
     if fps:
-        vc.set_fps(fps)
+        vc = vc.set_fps(fps)
     # add audio
     audio_path = glob.glob(os.path.join(urbansas_root, 'audio', fileid + '.*'))[0]
     vc.audio = AudioFileClip(audio_path)

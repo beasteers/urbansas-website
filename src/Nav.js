@@ -26,14 +26,15 @@ export const Nav = ({ children }) => {
     <AppBar position="sticky" sx={{ background: 'background.default' }}>
       <Box maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', overflow: 'auto' }}>
             {pages.map(({ name, id }) => (
               <Button
                 key={id}
                 // onClick={handleCloseNavMenu}
                 // variant={}
                 sx={{ 
-                  my: 2, color: 'white', display: 'block',
+                  my: 2, color: theme => name == current ? theme.palette.secondary.main : 'white', 
+                  display: 'block',
                   transition: 'color 0.3s ease-in-out'
                 }}>
                 {name}

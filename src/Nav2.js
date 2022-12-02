@@ -60,18 +60,25 @@ export const NavProvider = ({ children }) => {
 
 export const Nav = ({ }) => {
     const { refs, active, scrollTo } = useNavControl();
-    return (<AppBar position="sticky" sx={{ background: 'background.default' }}>
+    // console.log(active, Object.keys(refs.current))
+    return (<AppBar position="sticky" sx={{ 
+            backgroundColor: theme => theme.palette.background.primary, 
+            backgroundImage: theme => theme.palette.background.darkGradient 
+        }}>
         <Box maxWidth="xl">
         <Toolbar disableGutters>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 1, display: 'flex', overflow: 'auto' }}>
             {Object.keys(refs.current).map((name) => (
                 <Button
                 key={name}
                 onClick={() => scrollTo(name)}
-                variant={active === name ? 'outlined' : 'default'}
                 sx={{ 
-                    my: 2, color: 'white', display: 'block',
-                    transition: 'color 0.3s ease-in-out'
+                    my: 2, 
+                    color: theme => active === name ? theme.palette.secondary.main : 'white', 
+                    display: 'block',
+                    transition: 'color 0.3s ease-in-out',
+                    // borderBottom: 'transparent solid 1px',
+                    // borderBottomColor: theme => active === name ? theme.palette.secondary.main : null
                 }}>
                 {name}
                 </Button>

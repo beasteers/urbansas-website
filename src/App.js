@@ -29,7 +29,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { Bar } from './Plots'
+import { Bar, SingleBar } from './Plots'
 
 // const MAIN_BG = 'milan1011_40336';
 // const MAIN_BG = 'street_traffic-milan-1166-44225';
@@ -99,44 +99,49 @@ along with 3 hours of manually annotated data, including bounding boxes with cla
         <Box sx={{ 'li': { m: 1 }}}>
         <ul>
             <li>
-              Annotations for both audio and video
+              Annotations for both <b>audio</b> (48kHz, 24bit, 2ch) and <b>video</b> (1280x720, 24fps, annotated at 2fps), stored in separate files for easier data loaders
             </li>
             <li>
-              We chose stereo audio for use in audio source localization
+              We ensured <b>stereo audio</b> for use in audio source localization
+            </li>
+            <li>
+              Videos were divided into continuous <b>10 second chunks</b> for efficient batching
             </li>
             <li>
               For each vehicle, we annotated:
               <ul>
-                <li>The vehicle track_id across multiple frames</li>
+                <li>The vehicle <b>track_id</b> across multiple frames</li>
                 <li>
-                  different vehicle types: 
+                  different <b>vehicle classes</b>: 
                   <Stack direction='row' ml={1} spacing={1} display='inline-flex'>
                     {Object.entries(annotations.colors).map(([l, color]) => 
                       <Chip key={l} label={<b>{l}</b>} variant='outlined' size='small' sx={{ borderColor: color, borderWidth: 2 }} />)}
                   </Stack>
                 </li>
                 <li>
-                  when a vehicle was obstructed from view: 
+                  when a vehicle was <b>obstructed</b> from view: 
                   <Stack direction='row' ml={1} spacing={1} display='inline-flex'>
                     <Chip label='visibility: 1' variant='outlined' size='small' sx={{ borderWidth: 2 }} />
                     <Chip label='visibility: 0' variant='outlined' size='small' sx={{ borderWidth: 2, borderStyle: 'dashed' }} />
                   </Stack>
                 </li>
                 <li>
-                  We also labeled vehicles that were audible but not visible as 
+                  We also labeled vehicles that were <b>audible but not visible</b> as 
                   <Stack direction='row' ml={1} spacing={1} display='inline-flex'>
                     <Chip label='offscreen' variant='outlined' size='small' sx={{ borderWidth: 2 }} />
                   </Stack>
                 </li>
-                <li>Vehicles that are not moving (not sounding) are not annotated.</li>
+                <li>
+                  Only <b>sounding vehicles</b> were annotated (ignored parked cars).
+                </li>
               </ul>
             </li>
             
             <li>
               At the clip-level, we annotated:
               <ul>
-                <li>Night vs. Day</li>
-                <li>If there were non-identifiable vehicle sounds - meaning that we weren't able to label specific vehicle instances in the audio.</li>
+                <li><b>night</b> vs. <b>day</b></li>
+                <li>If there were <b>non-identifiable vehicle sounds</b> - meaning that we weren't able to label specific vehicle instances in the audio.</li>
               </ul>
             </li>
             
@@ -159,7 +164,7 @@ const LocationsSlide = ({ menu }) => {
         42 different locations around the world
       </Typography>
       <Typography gutterBottom>
-        Hover over (or touch) the video to play
+        Hover over (or touch) the video to play. If it doesn't play, try touching anywhere on the page and try again.
       </Typography>
       <StandardImageList playOnHover images={[
         ...Object.values(annotations.locations).map(f => annotations.meta[f].video_path_sm),
@@ -169,7 +174,7 @@ const LocationsSlide = ({ menu }) => {
   )
 }
 
-const DescriptionSlide = ({ menu }) => {
+const AnnotationsSlide = ({ menu }) => {
   return (
     <Section menu={menu}>
       <Typography variant='h2' gutterBottom>
@@ -255,29 +260,76 @@ const StatsSlide = ({ menu }) => {
       <Typography variant='h2' gutterBottom textAlign='center'>
           What's the composition of the dataset?
         </Typography>
-      <Typography variant='h6'>Amount of Labeled Data:</Typography>
+      {/* <Typography variant='h6'>Amount of Labeled Data:</Typography>
         <ProportionChart labels={['labeled', 'unlabeled']} values={[4, 9]} unit='hrs' colors={['#aaaaff', '#aaffff']} />
         <Typography variant='h6'>Amount by time of day:</Typography>
-        <ProportionChart labels={['night', 'day']} values={[0.5, 3.5]} unit='hrs' colors={['#aaaaff', '#aaffff']} />
+        <ProportionChart labels={['night', 'day']} values={[0.5, 3.5]} unit='hrs' colors={['#aaaaff', '#aaffff']} /> */}
 
-        <Typography variant='h6'>Vehicle counts:</Typography>
+
+        {/* <Typography variant='h5'>Video-level statistics:</Typography> */}
+
+        <Typography variant='h5' mt={3}>How many videos come from each dataset?</Typography>
+        <Typography variant='h6'>Labeled set:</Typography>
         <Box sx={{ height: 30 }}>
-          <Bar data={annotations.stats.video_label_box_counts} />
+          <SingleBar data={annotations.stats.dataset_counts} unit='videos' />
         </Box>
-        <Typography variant='h6'>Amount with offscreen sounds:</Typography>
-        {/* <ProportionChart labels={['offscreen', 'no offscreen']} values={[1, 3]} unit='hrs' colors={['#aaaaff', '#aaffff']} /> */}
+        <Typography variant='h6'>Unlabeled set:</Typography>
         <Box sx={{ height: 30 }}>
-          <Bar data={annotations.stats.offscreen_counts} />
+          <SingleBar data={annotations.stats.unlabeled_dataset_counts} unit='videos' />
+        </Box>
+        <Typography variant='h5'  mt={3}>How many videos does each location have?</Typography>
+        <Box sx={{ height: 500 }}>
+          <Bar data={annotations.stats.location_counts} layout='horizontal' margin={100} unit='videos' />
+        </Box>
+        <Typography variant='h5'  mt={3}>How many videos in each city?</Typography>
+        <Box sx={{ height: 300 }}>
+          <Bar data={annotations.stats.city_counts} layout='horizontal' margin={100} unit='videos' />
         </Box>
 
-        <Typography variant='h6'>Vehicle polyphony (number of vehicles at one time):</Typography>
-        <Typography variant='h6'>Distribution between MAVD and TAU across both labeled and unlabeled:</Typography>
-        <Typography variant='h6'>Distribution between different locations:</Typography>
-        <Typography variant='h6'>Vehicle detection counts:</Typography>
-        <Typography variant='h6'>Vehicle instance counts:</Typography>
-        <Typography variant='h6'>Vehicle/No Vehicle:</Typography>
-        <Typography variant='h6'>Night/Day:</Typography>
-        <Typography variant='h6'>Onscreen/Offscreen:</Typography>
+
+        <Typography variant='h5'  mt={3}>How many day and night videos?</Typography>
+        <Box sx={{ height: 30 }}>
+          <SingleBar data={annotations.stats.night_counts} unit='videos' />
+        </Box>
+        <Typography variant='h5'  mt={3}>How many videos with non-identifiable vehicle sound (NIVS)?</Typography>
+        <Box sx={{ height: 30 }}>
+          <SingleBar data={annotations.stats.non_identifiable_vehicle_sound_counts} unit='videos' />
+        </Box>
+        <Typography variant='h5'  mt={3}>How many videos with offscreen sounds?</Typography>
+        <Box sx={{ height: 30 }}>
+          <SingleBar data={annotations.stats.offscreen_counts} unit='videos' />
+        </Box>
+
+        <Typography variant='h5'  mt={3}>How many individual vehicles are there in the dataset?</Typography>
+        <Stack direction='row' sx={{ flexWrap: 'wrap', justifyContent: 'stretch', '> *': { flex: '1 1 200px' } }}>
+          <Box>
+            <Box sx={{ height: 90 }}>
+              <Bar data={annotations.stats.video_label_object_counts} margin={70} unit='vehicles' />
+            </Box>
+            <Typography sx={{ textAlign: 'center' }}><b>Video</b></Typography>
+          </Box>
+          <Box>
+            <Box sx={{ height: 90 }}>
+              <Bar data={annotations.stats.audio_label_object_counts} margin={70} unit='vehicles' />
+            </Box>
+            <Typography sx={{ textAlign: 'center' }}><b>Audio</b></Typography>
+          </Box>
+        </Stack>
+        
+        <Typography variant='h5'  mt={3}>How many boxes are there in total?</Typography>
+        <Box sx={{ height: 90 }}>
+          <Bar data={annotations.stats.video_label_box_counts} unit='boxes' margin={70} />
+        </Box>
+
+        <Typography variant='h5'  mt={3}>How common is it to have multiple vehicles in one frame?</Typography>
+        <Box sx={{ height: 180 }}>
+          <Bar data={annotations.stats.vehicle_polyphony_counts} layout='vertical' margin={50} unit='frames' xLegend='vehicles'  />
+        </Box>
+
+        <Typography variant='h5'  mt={3}>How many frames have at least one vehicle?</Typography>
+        <Box sx={{ height: 30 }}>
+          <SingleBar data={annotations.stats.has_vehicle_counts} unit='frames' />
+        </Box>
     </Section>
   )
 }
@@ -358,7 +410,7 @@ const RelatedWorkSlide = ({ menu }) => {
 
 
 const Author = ({ name, src, size=80, menu }) => {
-  return (<Stack justify='center' menu={menu}>
+  return (<Stack justify='center' menu={menu} mx={2}>
     <Avatar alt={name} src={src} sx={{ width: size, height: size }} />
     <Typography variant='subtitle' gutterBottom>
       {name}
@@ -372,9 +424,17 @@ const AuthorSlide = ({ menu }) => {
       <Typography variant='h2' gutterBottom>
         People
       </Typography>
-      <Stack direction='row' spacing={3} align='center' sx={{ justifyContent: 'space-around' }}>
-        <Author name='Magda' src='/logo192.png' />
-        <Author name='Bea' src='/logo192.png' />
+      <Stack direction='row' align='center' sx={{ justifyContent: 'space-around', flexWrap: 'wrap' }}>
+        <Author name='Magda' src='authors/magda.png' />
+        <Author name='Bea' src='authors/bea.png' />
+        <Author name='Pablo' src='authors/pablo.png' />
+        <Author name='Martin' src='authors/martin.png' />
+        <Author name='Luca' src='authors/luca.png' />
+        <Author name='Qianyi' src='authors/qianyi.png' />
+        <Author name='Yao' src='authors/yao.png' />
+        <Author name='Samarjit' src='authors/samarjit.png' />
+        <Author name='Xavier' src='authors/xavier.png' />
+        <Author name='Juan' src='authors/juan.png' />
       </Stack>
     </Section>
   )
@@ -399,12 +459,11 @@ const App = () => {
       '> *:not(.with-bg):nth-of-type(odd)': { backgroundImage: theme => theme.palette.background.lightGradient }
      }}>
       <NavProvider>
-       {/* <Nav name="Urbansas"> */}
         <Nav />
         <TitleSlide menu='Urbansas' />
-        <WhySlide menu='Why' />
-        <LocationsSlide menu='Scenes' />
-        <DescriptionSlide menu='Description' />
+        <WhySlide menu='why' />
+        <LocationsSlide menu='scenes' />
+        <AnnotationsSlide menu='annotations' />
       
       {/* <Section full>
         <Typography variant='h5' gutterBottom mt={3}>
@@ -422,7 +481,6 @@ const App = () => {
         <BibSlide menu='access' />
         <RelatedWorkSlide menu='related' />
         <AuthorSlide menu='people' />
-      {/* </Nav> */}
       </NavProvider>
       <Footer />
     </Box>

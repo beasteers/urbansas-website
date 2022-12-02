@@ -13,9 +13,15 @@ let theme = createTheme({
     //   primary: '#fff',
     // },
     primary: {
-      main: '#120630',
+      // main: '#891fdc',
+      main: '#35005f',
+    },
+    secondary: {
+      // main: 'rgb(24 18 72)',
+      main: '#e9bbff',
     },
     background: {
+      primary: '#120630',
       // default: '#06001e',
       // paper: '#06001e',
       // brightGradient: 'linear-gradient(45deg, #160040, #6028cd, #d700f5b0, #ffb3ea)',

@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -45,12 +46,17 @@ export const MultiVideoAnnotated = ({ fids, boxSx, ...props }) => {
 }
 
 // XXX: FPS ASSUMPTION
-const VideoAnnotated = ({ fid, size='md', group='locations', annotationFps=2, hideAudio, sx, ...props }) => {
+const VideoAnnotated = ({ fid, size='md', preLabeledBoxes=false, group='locations', annotationFps=2, hideAudio, sx, ...props }) => {
   const fullAnn = annotations.meta[fid] || {}
-  const { night, offscreen, visual_objects, audio_objects, ...ann } = fullAnn;
-  const src = ann[size ? `video_path_${size}` : 'video_path'];
-  // console.log(src, night, offscreen, visual_objects, audio_objects, ann)
+  const { visual_objects, audio_objects, ...ann } = fullAnn;
+  const src = ann[preLabeledBoxes ? 'video_path_prelabeled' : (size ? `video_path_${size}` : 'video_path')];
   useEffect(() => { console.log(fullAnn) }, [])
+
+  useEffect(() => {
+    for(let o of audio_objects) {
+      o.color = alpha(annotations.colors[o.label] || '#aaa', 0.3)
+    }
+  }, [audio_objects])
 
   const [frameIndex, setFrameIndex] = useState(0);
   const currentBoxes = visual_objects?.[frameIndex];
@@ -94,6 +100,7 @@ const VideoAnnotated = ({ fid, size='md', group='locations', annotationFps=2, hi
       <video
         width='100%'
         ref={vidRef}
+        preload='none'
         onLoadedMetadata={e => {
           setVideoDuration(e.target.duration);
         }}
@@ -113,14 +120,14 @@ const VideoAnnotated = ({ fid, size='md', group='locations', annotationFps=2, hi
         // controls={false}
         loop
         controls
-        muted
+        // muted
         autoPlay
         src={src}
       />
-      <AnnotationCanvas night={night} offscreen={offscreen} boxes={currentBoxes} colors={annotations.colors} {...props} />
+      <AnnotationCanvas {...ann} boxes={currentBoxes} colors={annotations.colors} {...props} />
     </Box>
     <VideoControls videoRef={vidRef} />
-    {!hideAudio && vidRef && <Audio video={vidRef} regions={audio_objects} />}
+    {!hideAudio && vidRef && <Audio video={vidRef} regions={audio_objects} {...ann} />}
   </Box>
 }
 
@@ -129,9 +136,10 @@ const VideoControls = ({ videoRef }) => {
   const paused = videoRef.current?.paused;
   const toggle = () => videoRef.current && (videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause());
   return <Stack direction='row'>
-    <IconButton aria-label="play/pause" onClick={toggle}>
-      {!paused ? <PauseIcon /> : <PlayArrowIcon />}
-    </IconButton>
+    <Button aria-label="play/pause" onClick={toggle}>
+      {/* {!paused ? <PauseIcon /> : <PlayArrowIcon />} */}
+      <PlayArrowIcon />/<PauseIcon />
+    </Button>
 
     {/* <IconButton aria-label="mute/unmute">
       {!paused ? <PauseIcon onClick={toggle} /> : <PlayArrowIcon onClick={toggle} />}
@@ -143,20 +151,30 @@ const WavesurferContext = createContext();
 const useWavesurfer = () => useContext(WavesurferContext);
 
 const WavesurferContainer = styled('div')`
+border-left: #000000 solid 1px;
+* region.wavesurfer-region {
+  
+}
 * region.wavesurfer-region:before {
     content: attr(data-region-label);
     position: absolute;
     top: 0;
     left: 4px;
-    color: white;
-    text-shadow: 0px 0px 3px rgb(0 0 0 / 58%);
+    color: black;
+    text-shadow: 0px 0px 3px rgb(255 255 255);
+    font-size: 0.75em;
+    font-weight: bold;
+}
+* region.wavesurfer-region[data-region-label=non_identifiable_vehicle_sound]:before {
+  top: unset;
+  bottom: 0;
 }
 spectrogram canvas {
   height: 100% !important;
 }
 `
 
-const Audio = ({ video, regions }) => {
+const Audio = ({ video, regions, non_identifiable_vehicle_sound }) => {
   const theme = useTheme();
   const ref = useRef();
   const [ ws, setWs ] = useState(null);
@@ -167,7 +185,7 @@ const Audio = ({ video, regions }) => {
       splitChannels: true,
       waveColor: theme.palette.primary.main,
       progressColor: theme.palette.primary.dark,
-      height: 60,
+      height: 50,
       responsive: true,
       backend: 'MediaElement',
       // width: '100%',
@@ -205,17 +223,19 @@ const Audio = ({ video, regions }) => {
   useEffect(() => {  
     if(!( ws && video?.current?.src && !ws.isDestroyed )) return;
     ws.load(video.current)
-    // ws.setMute(true)
+    ws.setMute(false)
     // ws.play()
   }, [ws, video]); // XXX: video element assumption
   return <WavesurferContext.Provider value={ws}>
     <WavesurferContainer ref={ref}>
+      {non_identifiable_vehicle_sound && 
+        <Region start={0} end={video.current?.duration} label={'non_identifiable_vehicle_sound'} />}
       {regions && regions.map((r, i) => <Region key={i} {...r} />)}
     </WavesurferContainer>
   </WavesurferContext.Provider>
 }
 
-const Region = ({ start, end, color='#f426b36c', label, non_identifiable_vehicle_sound }) => {
+const Region = ({ start, end, color='transparent', label }) => {
   const ws = useWavesurfer();
   useEffect(() => {
     if(!ws?.regions || ws?.isDestroyed) return;

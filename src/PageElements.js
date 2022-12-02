@@ -121,7 +121,7 @@ const Video = ({ src, playOnHover }) => {
     src?.endsWith('gif') ? 
     <img src={src} srcSet={src} alt={src} loading="lazy" />
     : (
-      <video autoPlay={!playOnHover} loop muted={!playOnHover}
+      <video autoPlay={!playOnHover} loop muted={!playOnHover} preload={'metadata'}
           onMouseOver={playOnHover && (e => e.target.play())}
           onMouseOut={playOnHover && (e => e.target.pause())}
           onTouchStart={playOnHover && (e => e.target.play())}
@@ -234,6 +234,20 @@ const Table = ({ data }) => {
       <DataGrid
         rows={data && data.map((d, id) => ({ id, ...d }))}
         columns={columns}
+        sx={{
+          '.MuiDataGrid-cell:hover': {
+            overflow: 'visible !important',
+            '.MuiDataGrid-cellContent': {
+              overflow: 'visible',
+              textOverflow: 'clip',
+              background: theme => theme.palette.primary.main,
+              color: 'white',
+              px: 1, ml: -1,
+              borderRadius: '4px',
+              zIndex: 100,
+            }
+          }
+        }}
         // pageSize={5}
         // rowsPerPageOptions={[5]}
       />
