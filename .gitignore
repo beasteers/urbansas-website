@@ -15,7 +15,7 @@ __pycache__/
 *.pth
 *.ckpt
 # dont upload videos
-*.mp4
+# *.mp4
 
 # output/
 
