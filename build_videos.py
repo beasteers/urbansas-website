@@ -100,7 +100,7 @@ def main(urbansas_root, fps=8):
             offscreen = bool(audio_clip_df.loc[fid].offscreen)
             non_identifiable_vehicle_sound = bool(audio_clip_df.loc[fid].non_identifiable_vehicle_sound)
 
-            pbar.write(f'{dataset}:{fid} v={len(vdf)} a={len(adf)} night={night} offscreen={offscreen} nivs={non_identifiable_vehicle_sound}')
+            pbar.write(f'{group} {dataset}:{fid} v={len(vdf)} a={len(adf)} night={night} offscreen={offscreen} nivs={non_identifiable_vehicle_sound}')
 
             try:
                 paths, duration, shape = pull_file(
@@ -120,6 +120,7 @@ def main(urbansas_root, fps=8):
 
             # anns[group]
             meta[fid] = {
+                **(meta.get(fid) or {}),
                 'file_id': fid, 
                 'location': location,
                 'dataset': dataset, 
@@ -175,6 +176,7 @@ def sjoin(sep, *xs):
 
 def write_video(vc, filename_base, key=None, ext='mp4', size=None, overwrite=False):
     path = os.path.join(public_out, f"{sjoin('_', filename_base, key)}.{ext}")
+
     # optionally write video
     if overwrite or not os.path.isfile(path):
         clipi = vc.resize(width=size) if size else vc

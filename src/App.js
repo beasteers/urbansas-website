@@ -41,9 +41,10 @@ console.log(annotations)
 
 
 const TitleSlide = ({ menu }) => {
+  const vid = annotations.meta[annotations.backgrounds[0]];
   return (
     <Section className='with-bg' full menu={menu}
-          background={annotations.meta[annotations.backgrounds[0]]?.video_path}
+          background={vid?.video_path || vid.video_path_md}
           sx={{
             color: 'white'
           }}>

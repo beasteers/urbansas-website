@@ -223,7 +223,8 @@
         }
       ],
       "video_path_sm": "output/milan1011_40336_sm.mp4",
-      "video_path_md": "output/milan1011_40336_md.mp4"
+      "video_path_md": "output/milan1011_40336_md.mp4",
+      "video_path": "output/milan1011_40336.mp4"
     },
     "helsinki164_5044": {
       "file_id": "helsinki164_5044",
