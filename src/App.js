@@ -31,7 +31,7 @@ import Select from '@mui/material/Select';
 
 import { Bar } from './Plots'
 
-const MAIN_BG = 'milan1011_40336';
+// const MAIN_BG = 'milan1011_40336';
 // const MAIN_BG = 'street_traffic-milan-1166-44225';
 // const MAIN_BG = 'milan1166_44225';
 
@@ -43,7 +43,7 @@ console.log(annotations)
 const TitleSlide = ({ menu }) => {
   return (
     <Section className='with-bg' full menu={menu}
-          background={annotations.meta[MAIN_BG]?.video_path}
+          background={annotations.meta[annotations.backgrounds[0]]?.video_path}
           sx={{
             color: 'white'
           }}>

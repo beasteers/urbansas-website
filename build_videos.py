@@ -30,7 +30,8 @@ annotations = {}
 
 file_groups = {
     'backgrounds': [
-        'helsinki165_5047',
+        'milan1011_40336',
+        # 'helsinki165_5047',
     ],
     'misc': [
         'helsinki164_5044',
@@ -60,7 +61,6 @@ def main(urbansas_root, fps=8):
     audio_df = pd.read_csv(os.path.join(urbansas_root, 'annotations/audio_annotations.csv'))
     video_df_sample = video_df.head(50)
     audio_df_sample = audio_df.head(50)
-    print(audio_df_sample)
 
     # get clip level annotations
     video_clip_df = video_df.groupby('filename').apply(lambda d: pd.Series({
@@ -105,8 +105,7 @@ def main(urbansas_root, fps=8):
             try:
                 paths, duration, shape = pull_file(
                     urbansas_root, fid, fps=fps,
-                    gif_sizes={'sm': 200, 'md': 400},
-                    video_sizes={'sm': 200, 'md': 400})
+                    video_sizes={'sm': 200, 'md': 400, None: group == 'backgrounds'})
             except IndexError:
                 print(f"couldn't find matching file for {fid}")
                 continue
@@ -171,10 +170,11 @@ def main(urbansas_root, fps=8):
 
 
 
-
+def sjoin(sep, *xs):
+    return sep.join(x for x in xs if x)
 
 def write_video(vc, filename_base, key=None, ext='mp4', size=None, overwrite=False):
-    path = os.path.join(public_out, f"{filename_base}{f'_{key}' if key else ''}.{ext}")
+    path = os.path.join(public_out, f"{sjoin('_', filename_base, key)}.{ext}")
     # optionally write video
     if overwrite or not os.path.isfile(path):
         clipi = vc.resize(width=size) if size else vc
@@ -183,7 +183,7 @@ def write_video(vc, filename_base, key=None, ext='mp4', size=None, overwrite=Fal
     return os.path.relpath(path, public)
 
 
-def pull_file(urbansas_root, fileid, video_df=None, gif_sizes=None, video_sizes=None, fps=None, overwrite=False):
+def pull_file(urbansas_root, fileid, video_df=None, video_sizes=None, fps=None, overwrite=False):
     from moviepy.editor import VideoFileClip, AudioFileClip
     # select the first video file matching that file id
     video_path = glob.glob(os.path.join(urbansas_root, 'video_24fps', fileid + '.*'))[0]
@@ -209,10 +209,14 @@ def pull_file(urbansas_root, fileid, video_df=None, gif_sizes=None, video_sizes=
     #     paths[f'gif_path_{key}'] = write_video(vc, fileid, key, 'gif', size, overwrite=overwrite)
 
     # write video
-    paths[f'video_path'] = write_video(vc, fileid, None, 'mp4', size=None, overwrite=overwrite)
+    # paths[f'video_path'] = write_video(vc, fileid, None, 'mp4', size=None, overwrite=overwrite)
     # write video at smaller sizes
     for key, size in (video_sizes or {}).items():
-        paths[f'video_path_{key}'] = write_video(vc, fileid, key, 'mp4', size, overwrite=overwrite)
+        # lets you disable sizes
+        if not size: continue
+        # lets you do full size
+        if size is True: size = None
+        paths[sjoin('_', 'video_path', key)] = write_video(vc, fileid, key, 'mp4', size, overwrite=overwrite)
 
 
     if video_df is not None:

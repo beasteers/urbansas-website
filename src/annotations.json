@@ -1,6 +1,6 @@
 {
   "backgrounds": [
-    "helsinki165_5047"
+    "milan1011_40336"
   ],
   "misc": [
     "helsinki164_5044",
@@ -62,81 +62,28 @@
     "vienna178_5485"
   ],
   "meta": {
-    "helsinki165_5047": {
-      "file_id": "helsinki165_5047",
-      "location": "helsinki165",
+    "milan1011_40336": {
+      "file_id": "milan1011_40336",
+      "location": "milan1011",
       "dataset": "tau",
       "night": false,
-      "offscreen": true,
-      "non_identifiable_vehicle_sound": false,
+      "offscreen": false,
+      "non_identifiable_vehicle_sound": true,
       "visual_objects": {
-        "0": [
-          {
-            "frame_id": 0,
-            "track_id": 1,
-            "x": 0.07377343750000001,
-            "y": 0.3541527777777778,
-            "w": 0.12455468750000001,
-            "h": 0.11440277777777778,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 0.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 0,
-            "track_id": 2,
-            "x": 0.79278125,
-            "y": 0.15895833333333334,
-            "w": 0.027742187499999994,
-            "h": 0.04512499999999999,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 0.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
         "1": [
           {
             "frame_id": 1,
             "track_id": 1,
-            "x": 0.073546875,
-            "y": 0.35894444444444445,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
+            "x": 0.0,
+            "y": 0.35347222222222224,
+            "w": 0.164796875,
+            "h": 0.2865416666666667,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 0.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 1,
-            "track_id": 2,
-            "x": 0.7916328125,
-            "y": 0.1621388888888889,
-            "w": 0.028312500000000008,
-            "h": 0.04483333333333336,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 0.5,
             "night": 0,
             "subset": "tau"
@@ -146,33 +93,16 @@
           {
             "frame_id": 2,
             "track_id": 1,
-            "x": 0.0733203125,
-            "y": 0.3637361111111111,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
+            "x": 0.22375781250000001,
+            "y": 0.21595833333333334,
+            "w": 0.7374921875,
+            "h": 0.5926527777777777,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 1.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 2,
-            "track_id": 2,
-            "x": 0.7904765625,
-            "y": 0.16531944444444444,
-            "w": 0.028890625000000014,
-            "h": 0.04454166666666666,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 1.0,
             "night": 0,
             "subset": "tau"
@@ -181,34 +111,17 @@
         "3": [
           {
             "frame_id": 3,
-            "track_id": 1,
-            "x": 0.07309375,
-            "y": 0.36852777777777773,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 1.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 3,
             "track_id": 2,
-            "x": 0.789328125,
-            "y": 0.16849999999999998,
-            "w": 0.02946093749999994,
-            "h": 0.0442361111111111,
+            "x": 0.0,
+            "y": 0.3763888888888889,
+            "w": 0.0892890625,
+            "h": 0.14412499999999998,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 1.5,
             "night": 0,
             "subset": "tau"
@@ -217,34 +130,17 @@
         "4": [
           {
             "frame_id": 4,
-            "track_id": 1,
-            "x": 0.0728671875,
-            "y": 0.3733194444444445,
-            "w": 0.12455468750000001,
-            "h": 0.11438888888888883,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 2.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 4,
             "track_id": 2,
-            "x": 0.7881796875,
-            "y": 0.17168055555555556,
-            "w": 0.030031249999999954,
-            "h": 0.043944444444444446,
+            "x": 0.0856328125,
+            "y": 0.32891666666666663,
+            "w": 0.2283671875,
+            "h": 0.1849861111111111,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 2.0,
             "night": 0,
             "subset": "tau"
@@ -253,143 +149,18 @@
         "5": [
           {
             "frame_id": 5,
-            "track_id": 1,
-            "x": 0.072640625,
-            "y": 0.3781111111111111,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
+            "track_id": 2,
+            "x": 0.4760625,
+            "y": 0.25525,
+            "w": 0.3931718749999999,
+            "h": 0.2848333333333333,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 2.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 5,
-            "track_id": 2,
-            "x": 0.78703125,
-            "y": 0.1748611111111111,
-            "w": 0.030601562499999967,
-            "h": 0.04365277777777779,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 2.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "6": [
-          {
-            "frame_id": 6,
-            "track_id": 1,
-            "x": 0.0724140625,
-            "y": 0.3828888888888889,
-            "w": 0.12455468750000001,
-            "h": 0.11440277777777778,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 3.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 6,
-            "track_id": 2,
-            "x": 0.7801875,
-            "y": 0.1705,
-            "w": 0.03403125000000005,
-            "h": 0.045861111111111116,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 3.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "7": [
-          {
-            "frame_id": 7,
-            "track_id": 1,
-            "x": 0.0721875,
-            "y": 0.38768055555555553,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 3.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 7,
-            "track_id": 2,
-            "x": 0.768640625,
-            "y": 0.17294444444444443,
-            "w": 0.038023437499999965,
-            "h": 0.04598611111111111,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 3.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "8": [
-          {
-            "frame_id": 8,
-            "track_id": 1,
-            "x": 0.07275781249999999,
-            "y": 0.38725,
-            "w": 0.12456249999999999,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 4.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 8,
-            "track_id": 2,
-            "x": 0.7571015625,
-            "y": 0.1754027777777778,
-            "w": 0.04201562499999998,
-            "h": 0.0460972222222222,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 4.0,
             "night": 0,
             "subset": "tau"
           }
@@ -397,34 +168,17 @@
         "9": [
           {
             "frame_id": 9,
-            "track_id": 1,
-            "x": 0.0733359375,
-            "y": 0.38681944444444444,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
+            "track_id": 3,
+            "x": 0.0,
+            "y": 0.34208333333333335,
+            "w": 0.22007812499999999,
+            "h": 0.2913888888888889,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 4.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 9,
-            "track_id": 2,
-            "x": 0.7455546875,
-            "y": 0.17784722222222224,
-            "w": 0.04600781250000008,
-            "h": 0.04622222222222223,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 4.5,
             "night": 0,
             "subset": "tau"
@@ -433,444 +187,18 @@
         "10": [
           {
             "frame_id": 10,
-            "track_id": 1,
-            "x": 0.0739140625,
-            "y": 0.3863888888888889,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
+            "track_id": 3,
+            "x": 0.48803124999999997,
+            "y": 0.2487777777777778,
+            "w": 0.5119687500000001,
+            "h": 0.5091388888888889,
             "class_id": 0,
             "visibility": 1.0,
             "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
+            "filename": "milan1011_40336",
+            "city": "milan",
+            "location_id": "milan1011",
             "time": 5.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 10,
-            "track_id": 2,
-            "x": 0.7185937499999999,
-            "y": 0.17819444444444446,
-            "w": 0.05310156250000002,
-            "h": 0.04868055555555553,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 5.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "11": [
-          {
-            "frame_id": 11,
-            "track_id": 1,
-            "x": 0.074484375,
-            "y": 0.3859583333333333,
-            "w": 0.12456249999999999,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 5.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 11,
-            "track_id": 2,
-            "x": 0.691640625,
-            "y": 0.17854166666666668,
-            "w": 0.060179687500000065,
-            "h": 0.051125000000000004,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 5.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "12": [
-          {
-            "frame_id": 12,
-            "track_id": 1,
-            "x": 0.0750625,
-            "y": 0.38552777777777775,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 6.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 12,
-            "track_id": 2,
-            "x": 0.6646796875,
-            "y": 0.1788888888888889,
-            "w": 0.0672734375,
-            "h": 0.05358333333333331,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 6.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "13": [
-          {
-            "frame_id": 13,
-            "track_id": 1,
-            "x": 0.07563281250000001,
-            "y": 0.38508333333333333,
-            "w": 0.12456249999999999,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 6.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 13,
-            "track_id": 2,
-            "x": 0.612140625,
-            "y": 0.18361111111111109,
-            "w": 0.07258593750000006,
-            "h": 0.06040277777777779,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 6.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "14": [
-          {
-            "frame_id": 14,
-            "track_id": 1,
-            "x": 0.07621093749999999,
-            "y": 0.3846527777777778,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 7.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 14,
-            "track_id": 2,
-            "x": 0.5596015624999999,
-            "y": 0.18833333333333332,
-            "w": 0.07789843750000003,
-            "h": 0.06722222222222222,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 7.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "15": [
-          {
-            "frame_id": 15,
-            "track_id": 3,
-            "x": 0.97459375,
-            "y": 0.14006944444444444,
-            "w": 0.024796875000000006,
-            "h": 0.08920833333333336,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 7.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 15,
-            "track_id": 1,
-            "x": 0.0767890625,
-            "y": 0.3842222222222222,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 7.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 15,
-            "track_id": 2,
-            "x": 0.48079687499999996,
-            "y": 0.2098611111111111,
-            "w": 0.08057031249999999,
-            "h": 0.07665277777777778,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 7.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "16": [
-          {
-            "frame_id": 16,
-            "track_id": 3,
-            "x": 0.9203125,
-            "y": 0.14006944444444444,
-            "w": 0.07907812500000003,
-            "h": 0.08920833333333336,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 8.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 16,
-            "track_id": 1,
-            "x": 0.077359375,
-            "y": 0.38379166666666664,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 8.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 16,
-            "track_id": 2,
-            "x": 0.40198437499999995,
-            "y": 0.2313888888888889,
-            "w": 0.08325000000000005,
-            "h": 0.08608333333333336,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 8.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "17": [
-          {
-            "frame_id": 17,
-            "track_id": 3,
-            "x": 0.8724921875,
-            "y": 0.15055555555555555,
-            "w": 0.10328906250000003,
-            "h": 0.071375,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 8.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 17,
-            "track_id": 1,
-            "x": 0.0779375,
-            "y": 0.3833611111111111,
-            "w": 0.12455468750000001,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 8.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 17,
-            "track_id": 2,
-            "x": 0.3128515625,
-            "y": 0.2722916666666667,
-            "w": 0.0755859375,
-            "h": 0.08348611111111114,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 8.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "18": [
-          {
-            "frame_id": 18,
-            "track_id": 3,
-            "x": 0.8305859375000001,
-            "y": 0.14847222222222223,
-            "w": 0.0950390624999999,
-            "h": 0.06820833333333333,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 9.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 18,
-            "track_id": 1,
-            "x": 0.0785078125,
-            "y": 0.38293055555555555,
-            "w": 0.12456249999999999,
-            "h": 0.1143888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 9.0,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 18,
-            "track_id": 2,
-            "x": 0.2237109375,
-            "y": 0.31319444444444444,
-            "w": 0.06792968749999999,
-            "h": 0.0808888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 9.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "19": [
-          {
-            "frame_id": 19,
-            "track_id": 3,
-            "x": 0.7892578125,
-            "y": 0.1526388888888889,
-            "w": 0.08503906249999994,
-            "h": 0.06509722222222222,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 9.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 19,
-            "track_id": 1,
-            "x": 0.07908593750000001,
-            "y": 0.3824861111111111,
-            "w": 0.12455468750000001,
-            "h": 0.11440277777777778,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 9.5,
-            "night": 0,
-            "subset": "tau"
-          },
-          {
-            "frame_id": 19,
-            "track_id": 2,
-            "x": 0.13103125,
-            "y": 0.35625,
-            "w": 0.06792968749999999,
-            "h": 0.07456944444444444,
-            "class_id": 0,
-            "visibility": 0.0,
-            "label": "car",
-            "filename": "helsinki165_5047",
-            "city": "helsinki",
-            "location_id": "helsinki165",
-            "time": 9.5,
             "night": 0,
             "subset": "tau"
           }
@@ -878,17 +206,24 @@
       },
       "audio_objects": [
         {
-          "filename": "helsinki165_5047",
-          "class_id": 4,
-          "label": "offscreen",
-          "non_identifiable_vehicle_sound": 0,
-          "start": 0.039,
-          "end": 9.98607
+          "filename": "milan1011_40336",
+          "class_id": 0,
+          "label": "car",
+          "non_identifiable_vehicle_sound": 1,
+          "start": 3.231,
+          "end": 5.981
+        },
+        {
+          "filename": "milan1011_40336",
+          "class_id": 0,
+          "label": "car",
+          "non_identifiable_vehicle_sound": 1,
+          "start": 0.0,
+          "end": 2.877
         }
       ],
-      "video_path": "output/helsinki165_5047.mp4",
-      "video_path_sm": "output/helsinki165_5047_sm.mp4",
-      "video_path_md": "output/helsinki165_5047_md.mp4"
+      "video_path_sm": "output/milan1011_40336_sm.mp4",
+      "video_path_md": "output/milan1011_40336_md.mp4"
     },
     "helsinki164_5044": {
       "file_id": "helsinki164_5044",
@@ -2623,7 +1958,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/helsinki164_5044.mp4",
       "video_path_sm": "output/helsinki164_5044_sm.mp4",
       "video_path_md": "output/helsinki164_5044_md.mp4"
     },
@@ -4258,7 +3592,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/lisbon1008_40464.mp4",
       "video_path_sm": "output/lisbon1008_40464_sm.mp4",
       "video_path_md": "output/lisbon1008_40464_md.mp4"
     },
@@ -5494,7 +4827,6 @@
           "end": 8.552
         }
       ],
-      "video_path": "output/lisbon1067_41198.mp4",
       "video_path_sm": "output/lisbon1067_41198_sm.mp4",
       "video_path_md": "output/lisbon1067_41198_md.mp4"
     },
@@ -6645,7 +5977,6 @@
           "end": 9.89809
         }
       ],
-      "video_path": "output/lisbon1067_41432.mp4",
       "video_path_sm": "output/lisbon1067_41432_sm.mp4",
       "video_path_md": "output/lisbon1067_41432_md.mp4"
     },
@@ -6817,7 +6148,6 @@
           "end": 5.89809
         }
       ],
-      "video_path": "output/lisbon1076_42301.mp4",
       "video_path_sm": "output/lisbon1076_42301_sm.mp4",
       "video_path_md": "output/lisbon1076_42301_md.mp4"
     },
@@ -8231,7 +7561,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/london167_5118.mp4",
       "video_path_sm": "output/london167_5118_sm.mp4",
       "video_path_md": "output/london167_5118_md.mp4"
     },
@@ -8955,7 +8284,6 @@
           "end": 10.022
         }
       ],
-      "video_path": "output/lyon1045_40062.mp4",
       "video_path_sm": "output/lyon1045_40062_sm.mp4",
       "video_path_md": "output/lyon1045_40062_md.mp4"
     },
@@ -9978,7 +9306,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/milan1097_42556.mp4",
       "video_path_sm": "output/milan1097_42556_sm.mp4",
       "video_path_md": "output/milan1097_42556_md.mp4"
     },
@@ -11145,7 +10472,6 @@
           "end": 9.784
         }
       ],
-      "video_path": "output/milan1166_44225.mp4",
       "video_path_sm": "output/milan1166_44225_sm.mp4",
       "video_path_md": "output/milan1166_44225_md.mp4"
     },
@@ -11158,7 +10484,6 @@
       "non_identifiable_vehicle_sound": false,
       "visual_objects": {},
       "audio_objects": [],
-      "video_path": "output/milan1166_44341.mp4",
       "video_path_sm": "output/milan1166_44341_sm.mp4",
       "video_path_md": "output/milan1166_44341_md.mp4"
     },
@@ -11322,7 +10647,6 @@
           "end": 9.213
         }
       ],
-      "video_path": "output/milan1202_44201.mp4",
       "video_path_sm": "output/milan1202_44201_sm.mp4",
       "video_path_md": "output/milan1202_44201_md.mp4"
     },
@@ -11653,7 +10977,6 @@
           "end": 8.04392
         }
       ],
-      "video_path": "output/paris272_8271.mp4",
       "video_path_sm": "output/paris272_8271_sm.mp4",
       "video_path_md": "output/paris272_8271_md.mp4"
     },
@@ -12260,7 +11583,6 @@
           "end": 7.37726
         }
       ],
-      "video_path": "output/paris272_8285.mp4",
       "video_path_sm": "output/paris272_8285_sm.mp4",
       "video_path_md": "output/paris272_8285_md.mp4"
     },
@@ -13368,7 +12690,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/stockholm174_5341.mp4",
       "video_path_sm": "output/stockholm174_5341_sm.mp4",
       "video_path_md": "output/stockholm174_5341_md.mp4"
     },
@@ -14986,7 +14307,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/vienna176_5411.mp4",
       "video_path_sm": "output/vienna176_5411_sm.mp4",
       "video_path_md": "output/vienna176_5411_md.mp4"
     },
@@ -16009,7 +15329,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/acevedo0103_00_0.mp4",
       "video_path_sm": "output/acevedo0103_00_0_sm.mp4",
       "video_path_md": "output/acevedo0103_00_0_md.mp4"
     },
@@ -16552,7 +15871,6 @@
           "end": 9.961
         }
       ],
-      "video_path": "output/barcelona161_4901.mp4",
       "video_path_sm": "output/barcelona161_4901_sm.mp4",
       "video_path_md": "output/barcelona161_4901_md.mp4"
     },
@@ -17898,7 +17216,6 @@
           "end": 9.961
         }
       ],
-      "video_path": "output/barcelona162_4937.mp4",
       "video_path_sm": "output/barcelona162_4937_sm.mp4",
       "video_path_md": "output/barcelona162_4937_md.mp4"
     },
@@ -18760,7 +18077,6 @@
           "end": 10.002
         }
       ],
-      "video_path": "output/barcelona163_4973.mp4",
       "video_path_sm": "output/barcelona163_4973_sm.mp4",
       "video_path_md": "output/barcelona163_4973_md.mp4"
     },
@@ -20122,7 +19438,6 @@
           "end": 9.815
         }
       ],
-      "video_path": "output/barcelona268_8133.mp4",
       "video_path_sm": "output/barcelona268_8133_sm.mp4",
       "video_path_md": "output/barcelona268_8133_md.mp4"
     },
@@ -20831,7 +20146,6 @@
           "end": 10.002
         }
       ],
-      "video_path": "output/helsinki164_5009.mp4",
       "video_path_sm": "output/helsinki164_5009_sm.mp4",
       "video_path_md": "output/helsinki164_5009_md.mp4"
     },
@@ -21446,7 +20760,6 @@
           "end": 5.544
         }
       ],
-      "video_path": "output/helsinki165_5045.mp4",
       "video_path_sm": "output/helsinki165_5045_sm.mp4",
       "video_path_md": "output/helsinki165_5045_md.mp4"
     },
@@ -21754,7 +21067,6 @@
           "end": 7.731
         }
       ],
-      "video_path": "output/helsinki166_5081.mp4",
       "video_path_sm": "output/helsinki166_5081_sm.mp4",
       "video_path_md": "output/helsinki166_5081_md.mp4"
     },
@@ -23057,7 +22369,6 @@
           "end": 9.94
         }
       ],
-      "video_path": "output/helsinki269_8170.mp4",
       "video_path_sm": "output/helsinki269_8170_sm.mp4",
       "video_path_md": "output/helsinki269_8170_md.mp4"
     },
@@ -25899,7 +25210,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/lisbon1008_40008.mp4",
       "video_path_sm": "output/lisbon1008_40008_sm.mp4",
       "video_path_md": "output/lisbon1008_40008_md.mp4"
     },
@@ -26395,7 +25705,6 @@
           "end": 3.96059
         }
       ],
-      "video_path": "output/lisbon1067_40096.mp4",
       "video_path_sm": "output/lisbon1067_40096_sm.mp4",
       "video_path_md": "output/lisbon1067_40096_md.mp4"
     },
@@ -26475,7 +25784,6 @@
           "end": 9.94
         }
       ],
-      "video_path": "output/lisbon1076_40113.mp4",
       "video_path_sm": "output/lisbon1076_40113_sm.mp4",
       "video_path_md": "output/lisbon1076_40113_md.mp4"
     },
@@ -27089,7 +26397,6 @@
           "end": 10.022
         }
       ],
-      "video_path": "output/lisbon1171_44176.mp4",
       "video_path_sm": "output/lisbon1171_44176_sm.mp4",
       "video_path_md": "output/lisbon1171_44176_md.mp4"
     },
@@ -27720,7 +27027,6 @@
           "end": 9.815
         }
       ],
-      "video_path": "output/london168_5130.mp4",
       "video_path_sm": "output/london168_5130_sm.mp4",
       "video_path_md": "output/london168_5130_md.mp4"
     },
@@ -28624,7 +27930,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/london169_5180.mp4",
       "video_path_sm": "output/london169_5180_sm.mp4",
       "video_path_md": "output/london169_5180_md.mp4"
     },
@@ -29000,7 +28305,6 @@
           "end": 8.783
         }
       ],
-      "video_path": "output/london270_8218.mp4",
       "video_path_sm": "output/london270_8218_sm.mp4",
       "video_path_md": "output/london270_8218_md.mp4"
     },
@@ -29581,7 +28885,6 @@
           "end": 3.981
         }
       ],
-      "video_path": "output/london271_8256.mp4",
       "video_path_sm": "output/london271_8256_sm.mp4",
       "video_path_md": "output/london271_8256_md.mp4"
     },
@@ -29680,7 +28983,6 @@
           "end": 3.752
         }
       ],
-      "video_path": "output/lyon1029_40200.mp4",
       "video_path_sm": "output/lyon1029_40200_sm.mp4",
       "video_path_md": "output/lyon1029_40200_md.mp4"
     },
@@ -30780,7 +30082,6 @@
           "end": 9.981
         }
       ],
-      "video_path": "output/lyon1110_40509.mp4",
       "video_path_sm": "output/lyon1110_40509_sm.mp4",
       "video_path_md": "output/lyon1110_40509_md.mp4"
     },
@@ -31234,173 +30535,8 @@
           "end": 10.0
         }
       ],
-      "video_path": "output/magallanes0308_01_0.mp4",
       "video_path_sm": "output/magallanes0308_01_0_sm.mp4",
       "video_path_md": "output/magallanes0308_01_0_md.mp4"
-    },
-    "milan1011_40336": {
-      "file_id": "milan1011_40336",
-      "location": "milan1011",
-      "dataset": "tau",
-      "night": false,
-      "offscreen": false,
-      "non_identifiable_vehicle_sound": true,
-      "visual_objects": {
-        "1": [
-          {
-            "frame_id": 1,
-            "track_id": 1,
-            "x": 0.0,
-            "y": 0.35347222222222224,
-            "w": 0.164796875,
-            "h": 0.2865416666666667,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 0.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "2": [
-          {
-            "frame_id": 2,
-            "track_id": 1,
-            "x": 0.22375781250000001,
-            "y": 0.21595833333333334,
-            "w": 0.7374921875,
-            "h": 0.5926527777777777,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 1.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "3": [
-          {
-            "frame_id": 3,
-            "track_id": 2,
-            "x": 0.0,
-            "y": 0.3763888888888889,
-            "w": 0.0892890625,
-            "h": 0.14412499999999998,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 1.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "4": [
-          {
-            "frame_id": 4,
-            "track_id": 2,
-            "x": 0.0856328125,
-            "y": 0.32891666666666663,
-            "w": 0.2283671875,
-            "h": 0.1849861111111111,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 2.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "5": [
-          {
-            "frame_id": 5,
-            "track_id": 2,
-            "x": 0.4760625,
-            "y": 0.25525,
-            "w": 0.3931718749999999,
-            "h": 0.2848333333333333,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 2.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "9": [
-          {
-            "frame_id": 9,
-            "track_id": 3,
-            "x": 0.0,
-            "y": 0.34208333333333335,
-            "w": 0.22007812499999999,
-            "h": 0.2913888888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 4.5,
-            "night": 0,
-            "subset": "tau"
-          }
-        ],
-        "10": [
-          {
-            "frame_id": 10,
-            "track_id": 3,
-            "x": 0.48803124999999997,
-            "y": 0.2487777777777778,
-            "w": 0.5119687500000001,
-            "h": 0.5091388888888889,
-            "class_id": 0,
-            "visibility": 1.0,
-            "label": "car",
-            "filename": "milan1011_40336",
-            "city": "milan",
-            "location_id": "milan1011",
-            "time": 5.0,
-            "night": 0,
-            "subset": "tau"
-          }
-        ]
-      },
-      "audio_objects": [
-        {
-          "filename": "milan1011_40336",
-          "class_id": 0,
-          "label": "car",
-          "non_identifiable_vehicle_sound": 1,
-          "start": 3.231,
-          "end": 5.981
-        },
-        {
-          "filename": "milan1011_40336",
-          "class_id": 0,
-          "label": "car",
-          "non_identifiable_vehicle_sound": 1,
-          "start": 0.0,
-          "end": 2.877
-        }
-      ],
-      "video_path": "output/milan1011_40336.mp4",
-      "video_path_sm": "output/milan1011_40336_sm.mp4",
-      "video_path_md": "output/milan1011_40336_md.mp4"
     },
     "milan1087_40737": {
       "file_id": "milan1087_40737",
@@ -31478,7 +30614,6 @@
           "end": 1.544
         }
       ],
-      "video_path": "output/milan1087_40737.mp4",
       "video_path_sm": "output/milan1087_40737_sm.mp4",
       "video_path_md": "output/milan1087_40737_md.mp4"
     },
@@ -31718,7 +30853,6 @@
           "end": 9.919
         }
       ],
-      "video_path": "output/milan1094_42024.mp4",
       "video_path_sm": "output/milan1094_42024_sm.mp4",
       "video_path_md": "output/milan1094_42024_md.mp4"
     },
@@ -32107,7 +31241,6 @@
           "end": 7.98142
         }
       ],
-      "video_path": "output/milan1097_40165.mp4",
       "video_path_sm": "output/milan1097_40165_sm.mp4",
       "video_path_md": "output/milan1097_40165_md.mp4"
     },
@@ -33377,7 +32510,6 @@
           "end": 10.022
         }
       ],
-      "video_path": "output/milan1166_44097.mp4",
       "video_path_sm": "output/milan1166_44097_sm.mp4",
       "video_path_md": "output/milan1166_44097_md.mp4"
     },
@@ -34163,7 +33295,6 @@
           "end": 6.60642
         }
       ],
-      "video_path": "output/prague1006_40006.mp4",
       "video_path_sm": "output/prague1006_40006_sm.mp4",
       "video_path_md": "output/prague1006_40006_md.mp4"
     },
@@ -34327,7 +33458,6 @@
           "end": 5.10642
         }
       ],
-      "video_path": "output/prague1033_43918.mp4",
       "video_path_sm": "output/prague1033_43918_sm.mp4",
       "video_path_md": "output/prague1033_43918_md.mp4"
     },
@@ -35032,7 +34162,6 @@
           "end": 10.022
         }
       ],
-      "video_path": "output/prague1153_41096.mp4",
       "video_path_sm": "output/prague1153_41096_sm.mp4",
       "video_path_md": "output/prague1153_41096_md.mp4"
     },
@@ -35884,7 +35013,6 @@
           "end": 8.84
         }
       ],
-      "video_path": "output/rivera0922_00_0.mp4",
       "video_path_sm": "output/rivera0922_00_0_sm.mp4",
       "video_path_md": "output/rivera0922_00_0_md.mp4"
     },
@@ -36288,7 +35416,6 @@
           "end": 10.0
         }
       ],
-      "video_path": "output/rivera0923_00_0.mp4",
       "video_path_sm": "output/rivera0923_00_0_sm.mp4",
       "video_path_md": "output/rivera0923_00_0_md.mp4"
     },
@@ -37464,7 +36591,6 @@
         ]
       },
       "audio_objects": [],
-      "video_path": "output/stockholm175_5378.mp4",
       "video_path_sm": "output/stockholm175_5378_sm.mp4",
       "video_path_md": "output/stockholm175_5378_md.mp4"
     },
@@ -37704,7 +36830,6 @@
           "end": 10.0
         }
       ],
-      "video_path": "output/templete0103_00_0.mp4",
       "video_path_sm": "output/templete0103_00_0_sm.mp4",
       "video_path_md": "output/templete0103_00_0_md.mp4"
     },
@@ -38367,7 +37492,6 @@
           "end": 0.75226
         }
       ],
-      "video_path": "output/vienna177_5448.mp4",
       "video_path_sm": "output/vienna177_5448_sm.mp4",
       "video_path_md": "output/vienna177_5448_md.mp4"
     },
@@ -39771,7 +38895,6 @@
           "end": 9.697
         }
       ],
-      "video_path": "output/vienna178_5485.mp4",
       "video_path_sm": "output/vienna178_5485_sm.mp4",
       "video_path_md": "output/vienna178_5485_md.mp4"
     }

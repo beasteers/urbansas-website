@@ -1,5 +1,5 @@
 # avoid inflating the git history for now
-public/output
+# public/output
 
 
 # Byte-compiled / optimized / DLL files
@@ -17,10 +17,7 @@ __pycache__/
 # dont upload videos
 *.mp4
 
-output/
-output2/
-
-models/
+# output/
 
 # trash folders
 shh/
