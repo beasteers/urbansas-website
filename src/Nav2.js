@@ -60,7 +60,7 @@ export const NavProvider = ({ children, ignoreHashFor }) => {
     }, [])
 
     useEffect(() => {
-        history?.replaceState('', '', ignoreHashFor?.includes(active) ? ' ' : `#${active}`)
+        window.history?.replaceState('', '', ignoreHashFor?.includes(active) ? ' ' : `#${active}`)
     }, [active])
 
 	return (

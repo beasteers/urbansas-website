@@ -100,7 +100,7 @@ const VideoAnnotated = ({ fid, size='md', preLabeledBoxes=false, group='location
       <video
         width='100%'
         ref={vidRef}
-        preload='none'
+        preload='metadata'
         onLoadedMetadata={e => {
           setVideoDuration(e.target.duration);
         }}
