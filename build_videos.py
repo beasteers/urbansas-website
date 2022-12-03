@@ -160,7 +160,8 @@ def main(urbansas_root, fps=None):
         'vehicle_polyphony_counts': polyphony.to_dict(),
         # meta counts
         'night_counts': video_clip_df.night.value_counts().rename(index={False: 'day', True: 'night'}).to_dict(),
-        'dataset_counts': video_clip_df.dataset.value_counts().to_dict(),
+        'dataset_counts': video_clip_df.dataset.str.upper().value_counts().to_dict(),
+        'audio_type_counts': video_clip_df.dataset.value_counts().rename(index={'mavd': 'stereo', 'tau': 'binaural'}).to_dict(),
         'unlabeled_dataset_counts': video_clip_df.dataset.value_counts().to_dict(),
         'city_counts': video_clip_df.city.value_counts().to_dict(),
         'location_counts': video_clip_df.location.value_counts().to_dict(),

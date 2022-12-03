@@ -71,16 +71,14 @@ const WhySlide = ({ menu }) => {
         <Typography gutterBottom>
         Automatic audio-visual urban traffic understanding is a growing area of research with many potential applications of value to academia, industry, and the public sector. 
 Yet, the lack of well-curated resources for training and evaluating models to research in this area hinders their development.
-        </Typography>
-        {/* <Typography variant='h2' gutterBottom mt={3}>
-          What is this dataset about?
-        </Typography> */}
-        <Typography gutterBottom>
         To address this we present a curated audio-visual dataset, Urban Sound & Sight (Urbansas), developed for investigating the detection and localization of sounding vehicles in the wild. Urbansas consists of 12 hours of unlabeled data 
 along with 3 hours of manually annotated data, including bounding boxes with classes and unique id of vehicles, and strong audio labels featuring vehicle types and indicating off-screen sounds. 
         </Typography>
-        <Typography variant='h2' gutterBottom mt={3}>
-          What are the details?
+        <Typography gutterBottom>
+        All videos from Urbansas are sourced from two existing datasets: <a href="https://zenodo.org/record/3338727#.Y4p-dexKi3I" target="_blank">Montevideo Audio and Video Dataset (MAVD)</a> and <a href="https://zenodo.org/record/3338727#.Y4p-dexKi3I" target="_blank">TAU Urban Audio-Visual Scenes 2021, Development dataset (TAU)</a>.
+        </Typography>
+        <Typography variant='h3' gutterBottom mt={3}>
+          What's inside?
         </Typography>
         <Stack direction='row' sx={{ justifyContent: 'space-around', textAlign: 'center' }}>
           <Box gutterBottom>
@@ -96,10 +94,43 @@ along with 3 hours of manually annotated data, including bounding boxes with cla
             <Typography>of audio and video unlabeled</Typography>
           </Box>
         </Stack>
-        <Box sx={{ 'li': { m: 1 }}}>
+      </Section>
+  )
+}
+
+
+
+const LocationsSlide = ({ menu }) => {
+  // const [muted, setMuted] = useState(false);
+  return (
+    <Section wide menu={menu}>
+      <Typography variant='h2' gutterBottom>
+        {annotations.locations.length} different locations around the world
+      </Typography>
+      <Typography gutterBottom>
+        Hover over (or touch) the video to play. If it doesn't play, try touching anywhere on the page and try again.
+      </Typography>
+      <Typography gutterBottom>
+        <b>WARNING: they do have audio!</b>
+      </Typography>
+      <StandardImageList playOnHover images={[
+        ...Object.values(annotations.locations).map(f => annotations.meta[f].video_path_sm),
+        // ...Object.values(annotations.misc).map(f => annotations.meta[f].gif_path_sm),
+      ]} />
+    </Section>
+  )
+}
+
+const AnnotationsSlide = ({ menu }) => {
+  return (
+    <Section menu={menu}>
+      <Typography variant='h2' gutterBottom>
+        Rich Video & Audio Annotations
+      </Typography>
+      <Box sx={{ 'li': { m: 1 }}}>
         <ul>
             <li>
-              Annotations for both <b>audio</b> (48kHz, 24bit, 2ch) and <b>video</b> (1280x720, 24fps, annotated at 2fps), stored in separate files for easier data loaders
+              Annotations for both <b>2 channel audio</b> (48kHz, 24bit) and <b>video</b> (1280x720, 24fps, annotated at 2fps), stored in separate files for easier data loaders
             </li>
             <li>
               We ensured <b>stereo audio</b> for use in audio source localization
@@ -141,7 +172,7 @@ along with 3 hours of manually annotated data, including bounding boxes with cla
               At the clip-level, we annotated:
               <ul>
                 <li><b>night</b> vs. <b>day</b></li>
-                <li>If there were <b>non-identifiable vehicle sounds</b> - meaning that we weren't able to label specific vehicle instances in the audio.</li>
+                <li>If there were <b>non-identifiable vehicle sounds</b> - meaning that there are many sounding vehicles and distinguishing the sounds from individual vehicles was not possible.</li>
               </ul>
             </li>
             
@@ -151,42 +182,16 @@ along with 3 hours of manually annotated data, including bounding boxes with cla
             
           </ul>
         </Box>
-      </Section>
-  )
-}
-
-
-
-const LocationsSlide = ({ menu }) => {
-  return (
-    <Section wide menu={menu}>
-      <Typography variant='h2' gutterBottom>
-        42 different locations around the world
-      </Typography>
-      <Typography gutterBottom>
-        Hover over (or touch) the video to play. If it doesn't play, try touching anywhere on the page and try again.
-      </Typography>
-      <StandardImageList playOnHover images={[
-        ...Object.values(annotations.locations).map(f => annotations.meta[f].video_path_sm),
-        // ...Object.values(annotations.misc).map(f => annotations.meta[f].gif_path_sm),
-      ]} />
-    </Section>
-  )
-}
-
-const AnnotationsSlide = ({ menu }) => {
-  return (
-    <Section menu={menu}>
-      <Typography variant='h2' gutterBottom>
-        Rich Video & Audio Annotations
-      </Typography>
-      <Box display='flex' flexWrap='wrap' sx={{ '> *': { flexBasis: '200px', flexGrow: 1 }, maxWidth: '70rem', margin: '0 auto' }}>
-        <VideoAnnotated fid={'vienna177_5448'} size='md' />
-        <VideoAnnotated fid={'prague1153_41096'} size='md' />
-      </Box>
-      <Typography variant='h6'>Various perspectives:</Typography>
+      {/* <Box display='flex' flexWrap='wrap' sx={{ '> *': { flexBasis: '200px', flexGrow: 1 }, maxWidth: '70rem', margin: '0 auto' }}>
+        <VideoAnnotated fid={'lyon1029_40200'} size='md' />
+        <VideoAnnotated fid={'milan1087_40737'} size='md' />
+      </Box> */}
+      <MultiVideoAnnotated fids={['lyon1029_40200', 'milan1087_40737']} />
+      <Typography variant='h5' mt={3}>There are many scenes with diverse traffic perspectives.</Typography>
+      <MultiVideoAnnotated fids={['stockholm174_5341', 'vienna178_5485', 'vienna176_5411']} />
+      
       <Typography variant='h6' gutterBottom mt={10}>
-        Un avant-goût ;)
+        What am I going to see when I download the dataset?
       </Typography>
       <MultiTableSample tables={annotations.table_samples} />
     </Section>
@@ -258,7 +263,7 @@ const StatsSlide = ({ menu }) => {
   return (
     <Section wide menu={menu}>
       <Typography variant='h2' gutterBottom textAlign='center'>
-          What's the composition of the dataset?
+          What's the composition of the labeled dataset?
         </Typography>
       {/* <Typography variant='h6'>Amount of Labeled Data:</Typography>
         <ProportionChart labels={['labeled', 'unlabeled']} values={[4, 9]} unit='hrs' colors={['#aaaaff', '#aaffff']} />
@@ -268,20 +273,15 @@ const StatsSlide = ({ menu }) => {
 
         {/* <Typography variant='h5'>Video-level statistics:</Typography> */}
 
-        <Typography variant='h5' mt={3}>How many videos come from each dataset?</Typography>
-        <Typography variant='h6'>Labeled set:</Typography>
+        <Typography variant='h5' mt={3}>What kind of audio do they have?</Typography>
         <Box sx={{ height: 30 }}>
-          <SingleBar data={annotations.stats.dataset_counts} unit='videos' />
+          <SingleBar data={annotations.stats.audio_type_counts} unit='videos' />
         </Box>
-        <Typography variant='h6'>Unlabeled set:</Typography>
-        <Box sx={{ height: 30 }}>
-          <SingleBar data={annotations.stats.unlabeled_dataset_counts} unit='videos' />
-        </Box>
-        <Typography variant='h5'  mt={3}>How many videos does each location have?</Typography>
-        <Box sx={{ height: 500 }}>
+        <Typography variant='h5'  mt={3}>How many videos were labeled at each location?</Typography>
+        <Box sx={{ height: 600 }}>
           <Bar data={annotations.stats.location_counts} layout='horizontal' margin={100} unit='videos' />
         </Box>
-        <Typography variant='h5'  mt={3}>How many videos in each city?</Typography>
+        <Typography variant='h5'  mt={3}>How many videos were labeled in each city?</Typography>
         <Box sx={{ height: 300 }}>
           <Bar data={annotations.stats.city_counts} layout='horizontal' margin={100} unit='videos' />
         </Box>
@@ -334,6 +334,17 @@ const StatsSlide = ({ menu }) => {
   )
 }
 
+const UnlabeledStatsSlide = ({ menu }) => {
+  return (
+    <Section wide menu={menu}>
+      <Typography variant='h2' gutterBottom textAlign='center'>
+          What's the composition of the unlabeled dataset?
+        </Typography>
+      
+    </Section>
+  )
+}
+
 
 
 const BibSlide = ({ menu }) => {
@@ -381,20 +392,57 @@ const RelatedWorkSlide = ({ menu }) => {
     <Section alignItems='center' menu={menu}>
       <Box>
       <Typography variant='h2' gutterBottom>
-        Related Work
+        Work using Urbansas
       </Typography>
 
       <RelatedWorkCard 
         title={'How to Listen? Rethinking Visual Sound Localization'}
         src='rcgrad.png'
         description={`
-
-        `}>
-
+        
+        `}
+        paperUrl='https://arxiv.org/abs/2204.05156'
+        codeUrl='https://github.com/hohsiangwu/rethinking-visual-sound-localization'
+      >
+        <Typography variant='body1' gutterBottom>
+        This paper investigates how back-propagation with audio-visual contrastive learning
+        can be utilized to do localization of sounding sources through images conditioned on audio. 
+        They compare between different models and audio-visual datasets and found that in  
+        several of the datasets there was a strong
+        bias towards single-source scenes where objects are large and central to the frame and thus, 
+        a naive baseline was able to 
+        achieve competative results just by placing a rectangle in the center of the screen.
+        They showed that Urbansas does not have as strong biases and therefore has less incentive
+        to overfit to a naive baseline.
+        </Typography>
       </RelatedWorkCard>
 
+      <RelatedWorkCard 
+        title={'Towards Vehicle Sound Source Localization in Urban Scenes'}
+        // paperUrl='https://arxiv.org/abs/2204.05156'
+        codeUrl='https://github.com/juliawilkins/localize_sound_density'
+      >
+        <Typography variant='body1' gutterBottom>
+        This work investigates audio-source localization using Urbansas. 
+        Due to the complexities in multi-source audio localization, 
+        they instead predict audio direction as a mixture of gaussian distributions
+        (as a function of angle). Their method yields promising results in a supervised 
+        setting for vehicle sound source localization, outperforming
+        the beamforming baseline, and providing more interpretable results
+        than previous binary formulations.
+        </Typography>
+      </RelatedWorkCard>
 
-      Here's a list of concurrent research on audio-visual localization.
+      <RelatedWorkCard 
+        title={'...'}
+        // src=''
+        // description={`
+        // `}
+        // paperUrl='https://arxiv.org/abs/2204.05156'
+        // codeUrl='https://github.com/hohsiangwu/rethinking-visual-sound-localization'
+      />
+
+      {/* Here's a list of concurrent research on audio-visual localization.
         <ul>
           <li>Julia</li>
           <li>Ho-Hsiang</li>
@@ -402,16 +450,56 @@ const RelatedWorkSlide = ({ menu }) => {
           <li>Montevideo</li>
           <li>Sound of Pixels</li>
         </ul>
-        Table of related datasets with features?
+        Table of related datasets with features? */}
       </Box>
     </Section>
   )
 }
 
+// .img-gradient:after {
+//   content:'';
+//   position:absolute;
+//   left:0; top:0;
+//   width:100%; height:100%;
+//   display:inline-block;
+//   background: linear-gradient(to bottom, rgba(0,47,75,0.5) 0%,rgba(220, 66, 37, 0.5) 100%);
+// }
+// .image::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   z-index: 1;
+// }
 
-const Author = ({ name, src, size=80, menu }) => {
-  return (<Stack justify='center' menu={menu} mx={2}>
-    <Avatar alt={name} src={src} sx={{ width: size, height: size }} />
+// .image:hover,
+// .image:focus {
+//   transform: translate(-9px, -9px);
+//   box-shadow: 10px 10px #95e1d3;
+// }
+
+// .image:hover::before,
+// .image:focus::before {
+//   background-image: -moz-linear-gradient( 90deg, rgb(252, 227, 138) 0%, rgb(243, 129, 129) 100%);
+//   background-image: -webkit-linear-gradient( 90deg, rgb(252, 227, 138) 0%, rgb(243, 129, 129) 100%);
+//   background-image: -ms-linear-gradient( 90deg, rgb(252, 227, 138) 0%, rgb(243, 129, 129) 100%);
+//   mix-blend-mode: overlay;
+// }
+const Author = ({ name, src, size=120, menu }) => {
+  return (<Stack justify='center' menu={menu} m={2}>
+    <Avatar alt={name} src={src} sx={{ 
+      width: size, height: size,
+      position: 'relative',
+      ':after': {
+        content: '""',
+        position: 'absolute', 
+        top: 0, left: 0, right: 0, bottom: 0, zIndex: 1,
+        background: theme => theme.palette.background.brighterGradient,
+        mixBlendMode: 'overlay',
+      }
+    }} />
     <Typography variant='subtitle' gutterBottom>
       {name}
     </Typography>
@@ -430,6 +518,7 @@ const AuthorSlide = ({ menu }) => {
         <Author name='Pablo' src='authors/pablo.png' />
         <Author name='Martin' src='authors/martin.png' />
         <Author name='Luca' src='authors/luca.png' />
+        <Author name='Julia' src='authors/julia.png' />
         <Author name='Qianyi' src='authors/qianyi.png' />
         <Author name='Yao' src='authors/yao.png' />
         <Author name='Samarjit' src='authors/samarjit.png' />
@@ -458,7 +547,7 @@ const App = () => {
       // '> *:not(.with-bg):nth-of-type(even)': { backgroundImage: theme => theme.palette.background.darkGradient },
       '> *:not(.with-bg):nth-of-type(odd)': { backgroundImage: theme => theme.palette.background.lightGradient }
      }}>
-      <NavProvider>
+      <NavProvider ignoreHashFor={['Urbansas']}>
         <Nav />
         <TitleSlide menu='Urbansas' />
         <WhySlide menu='why' />
@@ -476,9 +565,9 @@ const App = () => {
 
         <ChallengingSlide />
         <ClipLevelSlide />
+        <ExploreSlide menu='explore' />
         <StatsSlide menu='stats' />
-        <ExploreSlide />
-        <BibSlide menu='access' />
+        <BibSlide menu='dataset' />
         <RelatedWorkSlide menu='related' />
         <AuthorSlide menu='people' />
       </NavProvider>

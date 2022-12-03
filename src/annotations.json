@@ -38939,8 +38939,12 @@
       "night": 94
     },
     "dataset_counts": {
-      "mavd": 540,
-      "tau": 540
+      "MAVD": 540,
+      "TAU": 540
+    },
+    "audio_type_counts": {
+      "stereo": 540,
+      "binaural": 540
     },
     "unlabeled_dataset_counts": {
       "mavd": 540,

@@ -153,7 +153,7 @@ const useWavesurfer = () => useContext(WavesurferContext);
 const WavesurferContainer = styled('div')`
 border-left: #000000 solid 1px;
 * region.wavesurfer-region {
-  
+  cursor: unset !important;
 }
 * region.wavesurfer-region:before {
     content: attr(data-region-label);
@@ -171,6 +171,9 @@ border-left: #000000 solid 1px;
 }
 spectrogram canvas {
   height: 100% !important;
+}
+> wave {
+  cursor: pointer !important;
 }
 `
 

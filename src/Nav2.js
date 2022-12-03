@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useContext, useEffect, useCallback, useLayoutEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
@@ -32,6 +32,9 @@ export const useNav = name => {
         if(name) refs.current[name] = ref;
         return () => { if(name) delete refs.current[name]; }
     }, [refs, name]);
+    useEffect(() => {
+        if(name) ref.current.id = name;
+    }, [refs, name]);
 
 	useEffect(() => {
 		isOnScreen && name && setActive(name)
@@ -43,13 +46,22 @@ export const useNav = name => {
 export const NavContext = React.createContext();
 export const useNavControl = () => useContext(NavContext);
 
-export const NavProvider = ({ children }) => {
+export const NavProvider = ({ children, ignoreHashFor }) => {
     const refs = useRef({});
-	const [active, setActive] = useState('');
-    const scrollTo = useCallback((name) => {
+	const [active, setActive] = useState(() => window.location.hash?.slice(1) || '');
+
+    const scrollTo = useCallback((name, opts={ behavior: 'smooth' }) => {
 		setActive(name);
-		refs.current?.[name].current?.scrollIntoView({ behavior: 'smooth' });
+		refs.current?.[name].current?.scrollIntoView(opts);
 	}, []);
+
+    useEffect(() => {
+        active && scrollTo(active,  { behavior: 'auto' })
+    }, [])
+
+    useEffect(() => {
+        history?.replaceState('', '', ignoreHashFor?.includes(active) ? ' ' : `#${active}`)
+    }, [active])
 
 	return (
 		<NavContext.Provider value={{

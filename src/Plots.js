@@ -42,17 +42,17 @@ export const Bar = ({ data, unit, layout='horizontal', margin=0, xLegend }) => {
             'annotations',
             ({ bars, labelSkipWidth }) => (
                 // console.log(bars)||
-                <g>
+                <g key={bars[0].key}>
                     {bars.map(({ width, height, x, y, data, ...d }) => (
                         // console.log(width, height, x, y, data, d)||
                         (
-                            <g transform={(hz ? 
+                            <g key={data.label} transform={(hz ? 
                                 `translate(${5}, ${y + height / 2})` : 
                                 `translate(${x + width / 2}, ${y+height-5})`)
                                 // + ``
                             }>
-                            <text key={data.label}
-                                style={{ fontSize: '11px', transform: hz ? null : 'rotate(-90deg)' }}
+                            <text
+                                style={{ fontSize: '0.8em', transform: hz ? null : 'rotate(-90deg)' }}
                                 textAnchor="left"
                                 dominantBaseline="central">
                                     {labelFunc(data)}
@@ -74,6 +74,7 @@ export const SingleBar = ({ data, unit }) => {
         colors={{ scheme: 'set2' }}
         label={d => `${d.id}: ${d.value} ${unit||''}`}
         tooltip={(d) => <Tooltip {...d} unit={unit} />}
+        theme={{ fontSize: '0.8em' }}
     />
 }
 

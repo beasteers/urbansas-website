@@ -13,11 +13,16 @@ import Button from '@mui/material/Button';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import ImageListItem from '@mui/material/ImageListItem';
+import Link from '@mui/material/Link';
+
+import GitHubIcon from '@mui/icons-material/GitHub';
+import ArticleIcon from '@mui/icons-material/Article';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
+import CardMedia from '@mui/material/CardMedia';
+import CardHeader from '@mui/material/CardHeader';
 
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -116,12 +121,12 @@ export const Highlight = ({ children, ...sx }) => {
 //   );
 // }
 
-const Video = ({ src, playOnHover }) => {
+const Video = ({ src, playOnHover, muted }) => {
   return (
     src?.endsWith('gif') ? 
     <img src={src} srcSet={src} alt={src} loading="lazy" />
     : (
-      <video autoPlay={!playOnHover} loop muted={!playOnHover} preload={'metadata'}
+      <video autoPlay={!playOnHover} loop muted={muted !== undefined ? muted : !playOnHover} preload={'metadata'}
           onMouseOver={playOnHover && (e => e.target.play())}
           onMouseOut={playOnHover && (e => e.target.pause())}
           onTouchStart={playOnHover && (e => e.target.play())}
@@ -134,11 +139,11 @@ const Video = ({ src, playOnHover }) => {
 
 // onMouseOver="this.play()" onMouseOut="this.pause()"
 
-export const StandardImageList = ({ images, playOnHover }) => {
+export const StandardImageList = ({ images, playOnHover, muted }) => {
   return (
     <Stack direction='row' sx={{ flexWrap: 'wrap', '> *': {flex: '1 1 200px'} }}>
       {images && images.map(src => (
-          src && <Video key={src} src={src} playOnHover={playOnHover} />
+          src && <Video key={src} src={src} muted={muted} playOnHover={playOnHover} />
       ))}
     </Stack>
   );
@@ -225,7 +230,8 @@ export const MultiTableSample = ({ tables }) => {
 }
 
 const Table = ({ data }) => {
-  const columns = [...(data?.length ? Object.keys(data[0]).map(k => ({ field: k, flex: Math.log(k.length+1) })) : [])];
+  const columns = [...(data?.length ? Object.keys(data[0]).map(k => (
+    { field: k, flex: Math.log(k.length+1), sortable: false })) : [])];
 
   return (
     <div style={{ height: 400, width: '100%' }}>
@@ -248,6 +254,9 @@ const Table = ({ data }) => {
             }
           }
         }}
+        disableColumnMenu
+        disableColumnSelector
+        // sortModel={{field: columns[0], sort: 'asc'}}
         // pageSize={5}
         // rowsPerPageOptions={[5]}
       />
@@ -259,29 +268,51 @@ const Table = ({ data }) => {
 
 
 
-export const RelatedWorkCard = ({ title, description, children, src, links }) => {
+export const RelatedWorkCard = ({ title, description, children, src, links, paperUrl, codeUrl }) => {
   return (
-    <Card>
+    <Card sx={{ mb: 2 }}>
+      <CardHeader
+        // avatar={
+        //   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+        //     R
+        //   </Avatar>
+        // }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
+        title={title}
+        // subheader="September 14, 2016"
+      />
+      {/* <CardMedia
+        component="img"
+        height="194"
+        image=""
+      /> */}
       <CardContent>
-        <Stack direction='row' spacing={2}>
+        {/* <Stack direction='row' spacing={2}>
         <img src={src} style={{ borderRadius: '8', maxWidth: '50%' }} />
-          <Box>
-          <Typography gutterBottom variant="h5" component="div">
+          <Box> */}
+          {src && <img src={src} style={{ borderRadius: '8', maxWidth: '50%' }} />}
+          {/* <Typography gutterBottom variant="h5" component="div">
             {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
+          </Typography> */}
+          {description && <Typography variant="body2" color="text.secondary">
             {description}
-          </Typography>
+          </Typography>}
           {children}
-          </Box>
-        </Stack>
+          {/* </Box>
+        </Stack> */}
         
         
       </CardContent>
       <CardActions>
         {links}
-        {/* <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button> */}
+        {paperUrl && 
+          <Button component={Link} target="_blank" rel="noopener" href={paperUrl} startIcon={<ArticleIcon />}>Paper</Button>}
+        {codeUrl &&
+          <Button component={Link} target="_blank" rel="noopener" href={codeUrl} startIcon={<GitHubIcon />}>Code</Button>}
       </CardActions>
     </Card>
   );
