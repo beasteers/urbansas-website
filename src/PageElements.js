@@ -141,7 +141,7 @@ const Video = ({ src, playOnHover, muted }) => {
 
 export const StandardImageList = ({ images, playOnHover, muted }) => {
   return (
-    <Stack direction='row' sx={{ flexWrap: 'wrap', '> *': {flex: '1 1 200px'} }}>
+    <Stack direction='row' sx={{ flexWrap: 'wrap', '> *': {flex: { sm: '1 1 200px', xs: '1 1 50px' }} }}>
       {images && images.map(src => (
           src && <Video key={src} src={src} muted={muted} playOnHover={playOnHover} />
       ))}

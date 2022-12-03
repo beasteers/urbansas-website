@@ -89,6 +89,7 @@ export const Nav = ({ }) => {
                     color: theme => active === name ? theme.palette.secondary.main : 'white', 
                     display: 'block',
                     transition: 'color 0.3s ease-in-out',
+                    flexShrink: 0,
                     // borderBottom: 'transparent solid 1px',
                     // borderBottomColor: theme => active === name ? theme.palette.secondary.main : null
                 }}>
