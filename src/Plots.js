@@ -33,6 +33,7 @@ export const Bar = ({ data, unit, layout='horizontal', margin=0, xLegend }) => {
             legendPosition: 'middle',
             legendOffset: 32
         }}
+        theme={{ fontSize: '0.8em' }}
         layers={[
             // 'grid',
             'axes',
